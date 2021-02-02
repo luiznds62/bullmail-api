@@ -1,6 +1,6 @@
 import "dotenv/config";
-import { Server } from "./server/server";
-import { logger } from "./common/logger";
+import { Server } from "./src/server/Server";
+import { logger } from "./src/common/Logger";
 
 const server = new Server();
 

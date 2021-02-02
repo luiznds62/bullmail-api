@@ -1,8 +1,8 @@
 import express from "express";
 import EventEmitter from "events";
 import * as routes from "../api/index";
-import environment from "../common/environments";
-import { logger } from "../common/logger";
+import environment from "../common/Environments";
+import { logger } from "../common/Logger";
 
 export class Server extends EventEmitter {
   application: express.Application;
