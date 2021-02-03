@@ -1,22 +1,36 @@
-import express, { Router, Request, Response, NextFunction } from "express";
 import Controller from "../common/Controller";
-import {User} from "../domain/User";
-
-class UserController extends Controller<User> {
-
+import { User } from "../domain/user/User";
+import { UserService } from "../domain/user/UserService";
+import * as express from "express";
+class UserController extends Controller<User, UserService> {
   constructor() {
-      super(User,"/users");
+    super(User, "/users", UserService);
+    this.applyRoutes();
   }
 
-  applyRoutes() {
-      this.router.get("/", this.findAll);
-      this.router.post("/", this.create)
-  }
+  findAll = (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    res.json(this.service.findAll());
+    next();
+  };
 
-  create(req: express.Request, res: express.Response, next: express.NextFunction){
-      res.json({ user: req.body})
-      next();
-  }
+  create = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    const user = await this.service.create(req.body);
+    res.json(user);
+    next();
+  };
+
+  applyRoutes = () => {
+    this.router.get("/", this.findAll);
+    this.router.post("/", this.create);
+  };
 }
 
 export default new UserController();
