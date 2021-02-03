@@ -3,7 +3,7 @@
 📜 API para envio de E-Mail em Filas
 
 <p align="center">
-<img style="width: 10%" src="https://www.flaticon.com/svg/vstatic/svg/893/893247.svg?token=exp=1612279235~hmac=b2e5bbc8c01641ffebd4c9469ce4bccd" alt="Logo" border="0">
+<img src="https://www.flaticon.com/svg/vstatic/svg/893/893247.svg?token=exp=1612279235~hmac=b2e5bbc8c01641ffebd4c9469ce4bccd" alt="Logo" border="0" width="10%">
 </p>
 
 <p align="center">     
