@@ -1,5 +1,5 @@
 import { UserRepository } from '../user/UserRepository';
-import { BasicService} from "../../common/BasicService";
+import { BasicService} from "../../core/BasicService";
 
 export class UserService extends BasicService<UserRepository>{
   injector;

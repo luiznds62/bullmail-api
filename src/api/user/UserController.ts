@@ -1,10 +1,11 @@
-import BasicController from '../common/BasicController';
-import {User} from '../domain/user/User';
-import {UserService} from '../domain/user/UserService';
+import BasicController from '../../core/BasicController';
+import {User} from '../../domain/user/User';
+import {UserService} from '../../domain/user/UserService';
+import {UserMap} from "./UserDto";
 
-class UserController extends BasicController<User, UserService> {
+class UserController extends BasicController<User, UserService, UserMap> {
     constructor() {
-        super(User, '/users', UserService);
+        super(User, '/users', UserService, UserMap);
         this.applyRoutes();
     }
 

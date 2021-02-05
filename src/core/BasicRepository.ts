@@ -1,20 +1,20 @@
 import Datastore from 'nedb';
-import {logger} from "./Logger";
+import {logger} from "../common/Logger";
 import {BasicEntity} from "./BasicEntity";
 
-export interface IRepository {
+export interface IRepository<T> {
     findAll();
 
     findById(id);
 
-    create(model);
+    create(model: T);
 
-    merge(id, model);
+    merge(id, model: T);
 
     delete(id);
 }
 
-export class BasicRepository<T extends BasicEntity> implements IRepository {
+export class BasicRepository<T extends BasicEntity> implements IRepository<T> {
     db: Datastore;
 
     constructor(model) {
