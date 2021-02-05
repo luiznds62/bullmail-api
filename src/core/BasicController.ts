@@ -3,7 +3,7 @@ import {ReflectiveInjector} from 'injection-js';
 import {BasicService} from "./BasicService";
 import {Mapper} from "./Mapper";
 
-class BasicController<T, K extends BasicService<any>, M extends Mapper<any>> {
+class BasicController<T, K extends BasicService<any>, M extends Mapper<T>> {
     basePath: string;
     router: express.Router;
     model: T;
@@ -32,7 +32,7 @@ class BasicController<T, K extends BasicService<any>, M extends Mapper<any>> {
     findById = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         try {
             const model: T = await this.service.findById(req.params.id);
-            const dto: M = (<any>this.mapper).toDto(model);
+            const dto: M = this.mapper.toDto(model);
             res.json(dto);
             next();
         } catch (error) {
