@@ -8,8 +8,7 @@ export interface UserDto {
 }
 
 export class UserMap extends Mapper<User> {
-
-    public static toDomain(raw: any): User {
+    toDomain(raw: any): User {
         const userOrError = User.create({
             name: raw.name,
             email: raw.email,
@@ -19,19 +18,16 @@ export class UserMap extends Mapper<User> {
         return userOrError.isSuccess ? userOrError.getValue() : null;
     }
 
-    public static toPersistence(user: User): any {
+    toDTO(t: User) {
         return {
-            name: user.getName(),
-            email: user.getEmail(),
-            password: user.getPassword()
+            name: t.getName(),
+            email: t.getEmail(),
+            password: t.getPassword()
         }
     }
 
-    public static toDTO(user: User): UserDto {
-        return {
-            name: user.getName(),
-            email: user.getEmail(),
-            password: user.getPassword()
-        }
+    toPersistence(t: User): UserDto {
+        return this.toDomain(t);
     }
+
 }

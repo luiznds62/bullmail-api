@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "ts-node-dev --respawn index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ts-node --files jest.startup.ts"
   },
   "author": "luiznds",
   "license": "ISC",
@@ -19,9 +19,9 @@
     "nedb": "^1.8.0"
   },
   "devDependencies": {
-    "@types/nedb": "^1.8.11",
     "@types/bunyan": "^1.8.6",
     "@types/express": "^4.17.11",
+    "@types/nedb": "^1.8.11",
     "@types/node": "^14.14.22",
     "ts-node-dev": "^1.1.1",
     "typescript": "^4.1.3"

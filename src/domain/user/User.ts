@@ -23,15 +23,15 @@ class User extends BasicEntity {
         }
     }
 
-    getName(): string {
+    getName = ()  : string => {
         return this.name;
     }
 
-    getEmail(): string {
+    getEmail = ()  : string => {
         return this.email;
     }
 
-    getPassword(): string {
+    getPassword = ()  : string => {
         return this.password;
     }
 

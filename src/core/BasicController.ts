@@ -15,7 +15,7 @@ class BasicController<T, K extends BasicService<any>, M extends Mapper<T>> {
         this.router = express.Router();
         this.basePath = path;
         this.model = new model();
-        this.injector = ReflectiveInjector.resolveAndCreate([service,mapper]);
+        this.injector = ReflectiveInjector.resolveAndCreate([service, mapper]);
         this.service = this.injector.get(service);
         this.mapper = this.injector.get(mapper);
     }
@@ -32,7 +32,7 @@ class BasicController<T, K extends BasicService<any>, M extends Mapper<T>> {
     findById = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         try {
             const model: T = await this.service.findById(req.params.id);
-            const dto: M = this.mapper.toDto(model);
+            const dto: M = this.mapper.toDTO(model);
             res.json(dto);
             next();
         } catch (error) {
@@ -42,8 +42,8 @@ class BasicController<T, K extends BasicService<any>, M extends Mapper<T>> {
 
     create = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         try {
-            const model: T = await this.service.create(req.body);
-            const dto: M = (<any>this.mapper).toDto(model);
+            const model: T = await this.service.create(this.mapper.toPersistence(req.body));
+            const dto: M = this.mapper.toDTO(model);
             res.json(dto);
             next();
         } catch (error) {

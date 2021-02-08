@@ -19,6 +19,10 @@ export class Server extends EventEmitter {
     this.on('listening', () => {
       logger.info(`Server is listening on port: ${environment.SERVER.PORT}`);
     });
+
+    this.on('closing', () => {
+      logger.info(`Server is closing`);
+    });
   }
 
   initRoutes() {
@@ -42,5 +46,10 @@ export class Server extends EventEmitter {
         reject(error);
       }
     });
+  }
+
+  shutdown() {
+    this.emit("closing");
+    (<any> this.application).close();
   }
 }
