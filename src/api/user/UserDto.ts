@@ -2,6 +2,7 @@ import {Mapper} from "../../core/Mapper";
 import {User} from "../../domain/user/User";
 
 export interface UserDto {
+    _id: string;
     name: string;
     email: string;
     password: string;
@@ -10,6 +11,7 @@ export interface UserDto {
 export class UserMap extends Mapper<User> {
     toDomain(raw: any): User {
         const userOrError = User.create({
+            _id: raw._id,
             name: raw.name,
             email: raw.email,
             password: raw.password
@@ -20,6 +22,7 @@ export class UserMap extends Mapper<User> {
 
     toDTO(t: User) {
         return {
+            _id: t.getId(),
             name: t.getName(),
             email: t.getEmail(),
             password: t.getPassword()

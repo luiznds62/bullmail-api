@@ -16,15 +16,17 @@ export interface IRepository<T> {
 
 export class BasicRepository<T extends BasicEntity> implements IRepository<T> {
     db: Datastore;
+    model;
 
     constructor(model) {
+        this.model = model;
         this.db = new Datastore(model.path);
         this.db.loadDatabase(err => {
             if (err) {
                 logger.error(`Local DB file could not be loaded, caused by: ${err}`);
                 throw err;
             } else {
-                logger.debug("Users DB - Initialized");
+                logger.debug(`${model.name} DB - Initialized`);
             }
         });
     }
@@ -34,7 +36,7 @@ export class BasicRepository<T extends BasicEntity> implements IRepository<T> {
             this.db.find({}, (err, docs) => {
                 if (err) reject(err);
 
-                resolve(docs);
+                resolve(docs.map(doc => new this.model(doc)));
             });
         });
     }
@@ -44,7 +46,7 @@ export class BasicRepository<T extends BasicEntity> implements IRepository<T> {
             this.db.findOne({id: _id}, (err, doc) => {
                 if (err) reject(err);
 
-                resolve(doc);
+                resolve(new this.model(doc));
             });
         });
     }
@@ -54,17 +56,17 @@ export class BasicRepository<T extends BasicEntity> implements IRepository<T> {
             this.db.insert(model, (err, newDoc) => {
                 if (err) reject(err);
 
-                resolve(newDoc);
+                resolve(new this.model(newDoc));
             });
         });
     }
 
-    merge(_id, model): Promise<Number> {
+    merge(_id, model): Promise<T> {
         return new Promise((resolve, reject) => {
             this.db.update({id: _id}, model, {}, (err, numReplaced) => {
                 if (err) reject(err);
 
-                resolve(numReplaced);
+                resolve(this.findById(_id));
             });
         });
     }

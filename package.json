@@ -12,6 +12,7 @@
   "dependencies": {
     "bunyan": "^1.8.15",
     "bunyan-format": "^0.2.1",
+    "class-validator": "^0.13.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "injection-js": "^2.4.0",
