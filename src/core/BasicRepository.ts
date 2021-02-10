@@ -1,6 +1,7 @@
 import Datastore from 'nedb';
 import {logger} from "../common/Logger";
 import {BasicEntity} from "./BasicEntity";
+import {EventEmitter} from "events";
 
 export interface IRepository<T> {
     findAll();
@@ -14,11 +15,12 @@ export interface IRepository<T> {
     delete(id);
 }
 
-export class BasicRepository<T extends BasicEntity> implements IRepository<T> {
+export class BasicRepository<T extends BasicEntity> extends EventEmitter implements IRepository<T> {
     db: Datastore;
     model;
 
     constructor(model) {
+        super();
         this.model = model;
         this.db = new Datastore(model.path);
         this.db.loadDatabase(err => {
@@ -28,6 +30,10 @@ export class BasicRepository<T extends BasicEntity> implements IRepository<T> {
             } else {
                 logger.debug(`${model.name} DB - Initialized`);
             }
+        });
+
+        this.on("create", e => {
+            this.model.beforePersist(e.model);
         });
     }
 
@@ -43,7 +49,7 @@ export class BasicRepository<T extends BasicEntity> implements IRepository<T> {
 
     findById(_id): Promise<T> {
         return new Promise((resolve, reject) => {
-            this.db.findOne({id: _id}, (err, doc) => {
+            this.db.findOne({_id: _id}, (err, doc) => {
                 if (err) reject(err);
 
                 resolve(new this.model(doc));
@@ -53,6 +59,7 @@ export class BasicRepository<T extends BasicEntity> implements IRepository<T> {
 
     create(model): Promise<T> {
         return new Promise((resolve, reject) => {
+            this.emit("create", {model});
             this.db.insert(model, (err, newDoc) => {
                 if (err) reject(err);
 
@@ -63,9 +70,9 @@ export class BasicRepository<T extends BasicEntity> implements IRepository<T> {
 
     merge(_id, model): Promise<T> {
         return new Promise((resolve, reject) => {
-            this.db.update({id: _id}, model, {}, (err, numReplaced) => {
+            this.emit("merge", {_id, model});
+            this.db.update({_id: _id}, model, {}, (err, numReplaced) => {
                 if (err) reject(err);
-
                 resolve(this.findById(_id));
             });
         });
@@ -73,7 +80,7 @@ export class BasicRepository<T extends BasicEntity> implements IRepository<T> {
 
     delete(_id): Promise<Number> {
         return new Promise((resolve, reject) => {
-            this.db.remove({id: _id}, {}, (err, numRemoved) => {
+            this.db.remove({_id: _id}, {}, (err, numRemoved) => {
                 if (err) reject(err);
 
                 resolve(numRemoved);

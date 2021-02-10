@@ -2,6 +2,7 @@ import express from 'express';
 import {ReflectiveInjector} from 'injection-js';
 import {BasicService} from "./BasicService";
 import {Mapper} from "./Mapper";
+import {HTTP_STATUS} from "../common/Constants";
 
 class BasicController<T, K extends BasicService<any>, M extends Mapper<T>> {
     basePath: string;
@@ -55,7 +56,7 @@ class BasicController<T, K extends BasicService<any>, M extends Mapper<T>> {
 
     merge = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         try {
-            const model: T = await this.service.merge(req.params.id, this.mapper.toPersistence(req.body))
+            const model: T = await this.service.merge(req.params.id, this.mapper.toDomain(req.body))
             res.json(this.mapper.toDTO(model));
             next();
         } catch (error) {
@@ -66,7 +67,7 @@ class BasicController<T, K extends BasicService<any>, M extends Mapper<T>> {
     delete = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         try {
             await this.service.delete(req.params.id)
-            res.send(204);
+            res.send(HTTP_STATUS.SUCCESS_NO_CONTEND);
             next();
         } catch (error) {
             next(error);

@@ -1,6 +1,6 @@
 import {BasicEntity, IEntity} from "../../core/BasicEntity";
 import {Result} from "../../common/Result";
-import {IsDefined, IsEmail, Length} from "class-validator";
+import {IsDefined, IsEmail, IsString, Length} from "class-validator";
 
 interface UserProps extends IEntity {
     name: string;
@@ -20,16 +20,19 @@ class User extends BasicEntity {
     email: string;
 
     @IsDefined()
-    @Length(10, 20)
+    @IsString()
+    @Length(6, 20)
     password: string;
 
     private constructor(props: UserProps) {
         super();
         if (props) {
-            this._id = props._id;
+            if (props._id) {
+                this._id = props._id;
+            }
             this.name = props.name;
             this.email = props.email;
-            this.password = this.password;
+            this.password = props.password;
         }
     }
 
@@ -43,6 +46,10 @@ class User extends BasicEntity {
 
     getPassword = (): string => {
         return this.password;
+    }
+
+    public static beforePersist(model: User) {
+        model.password = "xxxx";
     }
 
     public static create(props: UserProps): Result<User> {

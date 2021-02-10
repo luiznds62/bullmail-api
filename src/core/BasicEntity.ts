@@ -1,4 +1,6 @@
 import {validateSync} from "class-validator";
+import {ValidationError} from "./exception/ValidationError";
+import {HTTP_STATUS} from "../common/Constants";
 
 export interface IEntity {
     _id: any;
@@ -14,11 +16,19 @@ export class BasicEntity implements IEntity {
         this.creationDate = new Date();
     }
 
-    static validate(model) {
+    public static validate(model) {
         const errors = validateSync(model);
         if (errors.length !== 0) {
-            throw new Error(Object.values(errors[0].constraints)[0]);
+            throw new ValidationError(HTTP_STATUS.VALIDATION_ERROR, Object.values(errors[0].constraints)[0]);
         }
+    }
+
+    public static beforePersist(model) {
+
+    }
+
+    public static afterPersist(model) {
+
     }
 
     getId() {

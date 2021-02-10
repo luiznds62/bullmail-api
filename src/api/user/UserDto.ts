@@ -29,8 +29,4 @@ export class UserMap extends Mapper<User> {
         }
     }
 
-    toPersistence(t: User): UserDto {
-        return this.toDomain(t);
-    }
-
 }
