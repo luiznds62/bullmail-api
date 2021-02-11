@@ -1,6 +1,9 @@
+import bcrypt from "bcryptjs";
 import {BasicEntity, IEntity} from "../../core/BasicEntity";
 import {Result} from "../../common/Result";
 import {IsDefined, IsEmail, IsString, Length} from "class-validator";
+import {BCRYPT} from "../../common/Constants";
+import {logger} from "../../common/Logger";
 
 interface UserProps extends IEntity {
     name: string;
@@ -48,8 +51,12 @@ class User extends BasicEntity {
         return this.password;
     }
 
-    public static beforePersist(model: User) {
-        model.password = "xxxx";
+    beforePersist() {
+        try {
+            this.password = bcrypt.hashSync(this.password, BCRYPT.SALTED_ROUND);
+        } catch (e) {
+            logger.error(e);
+        }
     }
 
     public static create(props: UserProps): Result<User> {

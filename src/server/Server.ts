@@ -4,10 +4,10 @@ import environment from '../common/Environments';
 import {logger} from '../common/Logger';
 import {handleError} from '../common/ErrorHandler';
 import methodOverride from 'method-override';
-import bodyParser from 'body-parser';
-import * as routes from '../api/index';
+import * as bodyParser from 'body-parser';
+import * as routes from '../api/router';
 
-export class Server extends EventEmitter {
+export default class Server extends EventEmitter {
     application: express.Application;
 
     constructor() {

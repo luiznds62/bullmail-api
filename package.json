@@ -10,6 +10,7 @@
   "author": "luiznds",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "bunyan": "^1.8.15",
     "bunyan-format": "^0.2.1",
     "class-validator": "^0.13.1",

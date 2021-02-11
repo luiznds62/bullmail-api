@@ -1,7 +1,7 @@
 import {ReflectiveInjector} from "injection-js";
 import {BasicRepository} from "./BasicRepository";
 
-export class BasicService<R extends BasicRepository<any>> {
+export class BasicService<R extends BasicRepository<any>>{
     injector;
     repository: R;
 

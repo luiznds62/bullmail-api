@@ -23,11 +23,10 @@ export class BasicEntity implements IEntity {
         }
     }
 
-    public static beforePersist(model) {
-
+    public beforePersist(model) {
     }
 
-    public static afterPersist(model) {
+    public afterPersist(model) {
 
     }
 

@@ -33,7 +33,11 @@ export class BasicRepository<T extends BasicEntity> extends EventEmitter impleme
         });
 
         this.on("create", e => {
-            this.model.beforePersist(e.model);
+            e.model.beforePersist();
+        });
+
+        this.on("merge", e => {
+            e.model.beforePersist();
         });
     }
 
