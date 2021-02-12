@@ -24,11 +24,9 @@ class BasicController<T, K extends BasicService<any>, M extends Mapper<T>> {
 
     findAll = [paginationMiddleware, async (req: IPaginatedRequest, res: express.Response, next: express.NextFunction) => {
         try {
-            let results = await this.service.findAll(req.pagination.offset, req.pagination.limit, req.pagination.sort);
-            results.content = (<any>results.content).map(raw => {
-                return this.mapper.toDTO(raw);
-            });
-            res.json(results);
+            let page = await this.service.findAll(req.pagination.offset, req.pagination.limit, req.pagination.sort);
+            page.setContent(page.getContent().map(raw => {return this.mapper.toDTO(raw);}))
+            res.json(page);
             next();
         } catch (error) {
             next(error);

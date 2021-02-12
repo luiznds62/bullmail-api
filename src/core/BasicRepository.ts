@@ -53,9 +53,9 @@ export class BasicRepository<T extends BasicEntity> extends EventEmitter impleme
                 if (err) reject(err);
 
                 const page = new BasicPage<T>()
-                    .content(docs.map(doc => new this.model(doc)))
-                    .total(Number(total))
-                    .hasNext(Number(total) > offset)
+                    .setContent(docs.map(doc => new this.model(doc)))
+                    .setTotal(Number(total))
+                    .setHasNext(Number(total) > offset)
                     .build();
 
                 resolve(page);
