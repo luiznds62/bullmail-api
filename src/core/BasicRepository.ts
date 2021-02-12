@@ -2,9 +2,10 @@ import Datastore from 'nedb';
 import {logger} from "../common/Logger";
 import {BasicEntity} from "./BasicEntity";
 import {EventEmitter} from "events";
+import {BasicPage} from "./BasicPage";
 
 export interface IRepository<T> {
-    findAll();
+    findAll(offset: number, limit: number, sort: string);
 
     findById(id);
 
@@ -41,12 +42,23 @@ export class BasicRepository<T extends BasicEntity> extends EventEmitter impleme
         });
     }
 
-    findAll(): Promise<T[]> {
+    async findAll(offset: number, limit: number, sort: string): Promise<BasicPage<T>> {
+        const total = await this.db.count({});
         return new Promise((resolve, reject) => {
-            this.db.find({}, (err, docs) => {
+            this.db.find({})
+                .skip(offset)
+                .limit(limit)
+                .sort(sort)
+                .exec((err, docs) => {
                 if (err) reject(err);
 
-                resolve(docs.map(doc => new this.model(doc)));
+                const page = new BasicPage<T>()
+                    .content(docs.map(doc => new this.model(doc)))
+                    .total(Number(total))
+                    .hasNext(Number(total) > offset)
+                    .build();
+
+                resolve(page);
             });
         });
     }

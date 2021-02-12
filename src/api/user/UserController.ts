@@ -2,6 +2,7 @@ import BasicController from '../../core/BasicController';
 import {User} from '../../domain/user/User';
 import {UserService} from '../../domain/user/UserService';
 import {UserMap} from "./UserDto";
+import {paginationMiddleware} from "../../core/middleware/PaginationMiddleware";
 
 class UserController extends BasicController<User, UserService, UserMap> {
     constructor() {
@@ -10,7 +11,7 @@ class UserController extends BasicController<User, UserService, UserMap> {
     }
 
     applyRoutes = () => {
-        this.router.get('/', this.findAll);
+        this.router.get('/', ...this.findAll);
         this.router.get('/:id', this.findById);
         this.router.post('/', this.create);
         this.router.put('/:id', this.merge);

@@ -3,6 +3,7 @@ import {ReflectiveInjector} from 'injection-js';
 import {BasicService} from "./BasicService";
 import {Mapper} from "./Mapper";
 import {HTTP_STATUS} from "../common/Constants";
+import {IPaginatedRequest, paginationMiddleware} from "./middleware/PaginationMiddleware";
 
 class BasicController<T, K extends BasicService<any>, M extends Mapper<T>> {
     basePath: string;
@@ -21,9 +22,10 @@ class BasicController<T, K extends BasicService<any>, M extends Mapper<T>> {
         this.mapper = this.injector.get(mapper);
     }
 
-    findAll = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    findAll = [paginationMiddleware, async (req: IPaginatedRequest, res: express.Response, next: express.NextFunction) => {
         try {
-            const results = (await this.service.findAll()).map(raw => {
+            let results = await this.service.findAll(req.pagination.offset, req.pagination.limit, req.pagination.sort);
+            results.content = (<any>results.content).map(raw => {
                 return this.mapper.toDTO(raw);
             });
             res.json(results);
@@ -31,7 +33,7 @@ class BasicController<T, K extends BasicService<any>, M extends Mapper<T>> {
         } catch (error) {
             next(error);
         }
-    };
+    }];
 
     findById = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         try {
@@ -67,7 +69,7 @@ class BasicController<T, K extends BasicService<any>, M extends Mapper<T>> {
     delete = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         try {
             await this.service.delete(req.params.id)
-            res.send(HTTP_STATUS.SUCCESS_NO_CONTEND);
+            res.sendStatus(HTTP_STATUS.SUCCESS_NO_CONTEND);
             next();
         } catch (error) {
             next(error);

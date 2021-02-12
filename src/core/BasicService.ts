@@ -1,7 +1,7 @@
 import {ReflectiveInjector} from "injection-js";
 import {BasicRepository} from "./BasicRepository";
 
-export class BasicService<R extends BasicRepository<any>>{
+export class BasicService<R extends BasicRepository<any>> {
     injector;
     repository: R;
 
@@ -10,8 +10,8 @@ export class BasicService<R extends BasicRepository<any>>{
         this.repository = this.injector.get(repository);
     }
 
-    findAll() {
-        return this.repository.findAll();
+    findAll(offset: number, limit: number, sort: string) {
+        return this.repository.findAll(offset, limit, sort);
     }
 
     findById(id) {
