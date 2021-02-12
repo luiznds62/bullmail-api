@@ -2,7 +2,6 @@ import BasicController from '../../core/BasicController';
 import {User} from '../../domain/user/User';
 import {UserService} from '../../domain/user/UserService';
 import {UserMap} from "./UserDto";
-import {paginationMiddleware} from "../../core/middleware/PaginationMiddleware";
 
 class UserController extends BasicController<User, UserService, UserMap> {
     constructor() {
