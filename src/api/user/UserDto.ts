@@ -20,7 +20,7 @@ export class UserMap extends Mapper<User> {
         return userOrError.isSuccess ? userOrError.getValue() : null;
     }
 
-    toDTO(t: User) {
+    toDTO(t: User): UserDto {
         return {
             _id: t.getId(),
             name: t.getName(),

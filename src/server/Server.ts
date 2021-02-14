@@ -2,7 +2,7 @@ import express from 'express';
 import EventEmitter from 'events';
 import environment from '../common/Environments';
 import {logger} from '../common/Logger';
-import {handleError} from '../common/ErrorHandler';
+import {errorHandler} from '../common/ErrorHandler';
 import methodOverride from 'method-override';
 import * as bodyParser from 'body-parser';
 import * as routes from '../api/router';
@@ -31,7 +31,7 @@ export default class Server extends EventEmitter {
             this.application.use((<any>route).basePath, (<any>route).router);
         });
 
-        this.application.use(handleError);
+        this.application.use(errorHandler);
     }
 
     start() {

@@ -43,23 +43,25 @@ export class BasicRepository<T extends BasicEntity> extends EventEmitter impleme
     }
 
     async findAll(offset: number, limit: number, sort: string): Promise<BasicPage<T>> {
-        const total = await this.db.count({});
         return new Promise((resolve, reject) => {
+            const skip = offset * limit;
             this.db.find({})
-                .skip(offset)
+                .skip(skip)
                 .limit(limit)
                 .sort(sort)
                 .exec((err, docs) => {
-                if (err) reject(err);
+                    if (err) reject(err);
 
-                const page = new BasicPage<T>()
-                    .setContent(docs.map(doc => new this.model(doc)))
-                    .setTotal(Number(total))
-                    .setHasNext(Number(total) > offset)
-                    .build();
+                    this.db.count({}).exec((err, count) => {
+                        const page = new BasicPage<T>()
+                            .setContent(docs.map(doc => new this.model(doc)))
+                            .setTotal(Number(count))
+                            .setHasNext((skip + docs.length) < Number(count))
+                            .build();
 
-                resolve(page);
-            });
+                        resolve(page);
+                    });
+                });
         });
     }
 
