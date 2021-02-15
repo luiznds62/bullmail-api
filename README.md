@@ -1,6 +1,6 @@
 # BullMail API
 
-📜 API para envio de E-Mail em Filas
+📜 API para envio de E-Mailer em Filas
 
 <p align="center">
 <img src="https://www.flaticon.com/svg/vstatic/svg/4144/4144781.svg?token=exp=1612541928~hmac=9186f5eafb65e2be77c6566514f12cd9" alt="Logo" border="0" width="10%">
