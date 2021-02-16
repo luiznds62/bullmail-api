@@ -5,9 +5,13 @@ import {EventEmitter} from "events";
 import {BasicPage} from "./BasicPage";
 
 export interface IRepository<T> {
-    findAll(offset: number, limit: number, sort: string);
+    findAll(offset: number, limit: number, sort: string): Promise<BasicPage<T>>;
 
     findById(id);
+
+    find(query): Promise<T[]>;
+
+    findOne(query): Promise<T>;
 
     create(model: T);
 
@@ -17,7 +21,7 @@ export interface IRepository<T> {
 }
 
 export class BasicRepository<T extends BasicEntity> extends EventEmitter implements IRepository<T> {
-    db: Datastore;
+    private db: Datastore;
     model;
 
     constructor(model) {
@@ -62,6 +66,26 @@ export class BasicRepository<T extends BasicEntity> extends EventEmitter impleme
                         resolve(page);
                     });
                 });
+        });
+    }
+
+    findOne(query): Promise<T> {
+        return new Promise((resolve, reject) => {
+            this.db.findOne(query, (err, doc) => {
+                if (err) reject(err);
+
+                resolve(new this.model(doc));
+            });
+        });
+    }
+
+    find(query): Promise<T[]> {
+        return new Promise((resolve, reject) => {
+            this.db.find(query, (err, docs) => {
+                if (err) reject(err);
+
+                resolve(docs.map(doc => new this.model(doc)));
+            });
         });
     }
 

@@ -1,5 +1,6 @@
 import * as nodemailer from "nodemailer";
 import environment from "../common/Environments";
+import {Injectable} from "injection-js";
 
 interface IEmailOptions {
     from: string;
@@ -9,6 +10,7 @@ interface IEmailOptions {
     html?: string;
 }
 
+@Injectable()
 export class Mailer {
 
     private transporter: any;

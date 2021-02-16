@@ -9,5 +9,10 @@ export default {
             USER: process.env.MAIL_USER,
             PASS: process.env.MAIL_PASS
         }
+    },
+    REDIS: {
+        HOST: process.env.REDIS_HOST,
+        PORT: process.env.REDIS_PORT,
+        PASSWORD: process.env.REDIS_PASSWORD
     }
 };

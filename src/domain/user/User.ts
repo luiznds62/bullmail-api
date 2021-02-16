@@ -4,6 +4,7 @@ import {Result} from "../../common/Result";
 import {IsDefined, IsEmail, IsString, Length} from "class-validator";
 import {BCRYPT} from "../../common/Constants";
 import {logger} from "../../common/Logger";
+import "reflect-metadata";
 
 interface UserProps extends IEntity {
     name: string;

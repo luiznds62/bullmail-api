@@ -4,14 +4,15 @@ import {BasicService} from "./BasicService";
 import {Mapper} from "./Mapper";
 import {HTTP_STATUS} from "../common/Constants";
 import {IPaginatedRequest, paginationMiddleware} from "./middleware/PaginationMiddleware";
+import {BasicEntity} from "./BasicEntity";
 
-class BasicController<T, K extends BasicService<any>, M extends Mapper<T>> {
+class BasicController<T extends BasicEntity, K extends BasicService<any, T>, M extends Mapper<T>> {
     basePath: string;
-    router: express.Router;
     model: T;
-    injector;
     service: K;
     mapper: M;
+    router: express.Router;
+    injector: ReflectiveInjector;
 
     constructor(model, path, service, mapper) {
         this.router = express.Router();
@@ -25,7 +26,9 @@ class BasicController<T, K extends BasicService<any>, M extends Mapper<T>> {
     findAll = [paginationMiddleware, async (req: IPaginatedRequest, res: express.Response, next: express.NextFunction) => {
         try {
             let page = await this.service.findAll(req.pagination.offset, req.pagination.limit, req.pagination.sort);
-            page.setContent(page.getContent().map(raw => {return this.mapper.toDTO(raw);}))
+            page.setContent(page.getContent().map(raw => {
+                return this.mapper.toDTO(raw);
+            }))
             res.json(page);
             next();
         } catch (error) {

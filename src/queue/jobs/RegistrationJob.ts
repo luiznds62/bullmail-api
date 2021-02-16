@@ -2,30 +2,40 @@ import {BasicJob} from "../../core/BasicJob";
 import {JOBS} from "../../common/Constants";
 import {Mailer} from "../../common/Mailer";
 import {ReflectiveInjector} from "injection-js";
+import {UserService} from "../../domain/user/UserService";
+import {RegistrationMail} from "../../assets/RegistrationMail";
+import "reflect-metadata";
 
 class RegistrationJob extends BasicJob {
     private injector;
     private mailService: Mailer;
+    private userService: UserService;
+    private template: RegistrationMail;
 
     constructor() {
         super();
         this.key = JOBS.REGISTRATION;
         this.options = {};
-        this.injector = ReflectiveInjector.resolveAndCreate([Mailer]);
+        this.injector = ReflectiveInjector.resolveAndCreate([Mailer, UserService, RegistrationMail]);
         this.mailService = this.injector.get(Mailer);
+        this.userService = this.injector.get(UserService);
+        this.template = this.injector.get(RegistrationMail);
     }
 
     async handle(job, done) {
         const {userId} = job.data;
 
-        const user =
+        const user = await this.userService.findById(userId);
 
-        this.mailService.send({
+        const result = this.mailService.send({
             from: "bullmail@abc.com",
-            to:
-        })
+            to: user.getEmail(),
+            subject: "Account verification",
+            text: "",
+            html: await this.template.generate(user)
+        });
 
-        done();
+        done(null, result);
     }
 }
 

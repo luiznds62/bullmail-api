@@ -2,12 +2,21 @@ import Queue from "bull";
 import * as jobs from "./jobs";
 import {logger} from "../common/Logger";
 import {BasicJob} from "../core/BasicJob";
+import environment from "../common/Environments";
 
 let queues;
 
+const redisConfig = {
+    redis: {
+        port: parseInt(environment.REDIS.PORT),
+        host: environment.REDIS.HOST,
+        password: environment.REDIS.PASSWORD
+    }
+}
+
 try {
     queues = Object.values(jobs).map((job: BasicJob) => ({
-        bull: new Queue(job.key),
+        bull: new Queue(job.key, redisConfig),
         name: job.key,
         handle: job.handle,
         options: job.options
