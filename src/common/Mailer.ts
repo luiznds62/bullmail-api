@@ -26,7 +26,7 @@ export class Mailer {
             if (error) {
                 logger.error(`An error ocurred while trying to stabilish connection with the mail server: ${error.message}`);
             } else {
-                logger.info("Server is ready to take our messages");
+                logger.info("Mail Server is ready to receive messages");
             }
         });
     }
