@@ -31,7 +31,7 @@ class UserController extends BasicController<User, UserService, UserMap> {
             const user = await this.service.findOne({name: req.body.name});
             await QueueManager.add(JOBS.REGISTRATION, {userId: user.getId()});
         } catch (e) {
-            throw new Error(`Erro ao adicionar na fila: ${e.message}`);
+            throw new Error(`Error while trying to send registration mail: ${e.message}`);
         } finally {
             next();
         }

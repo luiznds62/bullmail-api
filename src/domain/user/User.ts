@@ -17,35 +17,54 @@ class User extends BasicEntity {
 
     @IsDefined()
     @Length(5, 30)
-    name: string;
+    private name: string;
 
     @IsDefined()
     @IsEmail()
-    email: string;
+    private email: string;
 
     @IsDefined()
     @IsString()
     @Length(6, 20)
-    password: string;
+    private password: string;
 
     private constructor(props: UserProps) {
         super();
         if (props) {
-            if (props._id) {
-                this._id = props._id;
+            if (this.hasId(props)) {
+                this.setId(props._id);
             }
-            this.name = props.name;
-            this.email = props.email;
-            this.password = props.password;
+            this.setName(props.name);
+            this.setEmail(props.email);
+            this.setPassword(props.password);
         }
+    }
+
+    hasId(props) {
+        return Object.keys(props).includes("_id");
+    }
+
+    setName = (name: string): User => {
+        this.name = name;
+        return this;
     }
 
     getName = (): string => {
         return this.name;
     }
 
+    setEmail = (email: string): User => {
+        this.email = email;
+        return this;
+    }
+
     getEmail = (): string => {
         return this.email;
+    }
+
+    setPassword = (password: string): User => {
+        this.password = password;
+        return this;
     }
 
     getPassword = (): string => {

@@ -30,7 +30,12 @@ export class BasicEntity implements IEntity {
 
     }
 
-    getId() {
+    setId(_id: string): BasicEntity {
+        this._id = _id;
+        return this;
+    }
+
+    getId(): string {
         return this._id;
     }
 }

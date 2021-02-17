@@ -23,7 +23,6 @@ export class Mailer {
         this.transporter = nodemailer.createTransport({
             host: environment.MAIL.HOST,
             port: environment.MAIL.PORT,
-            secure: false,
             auth: {
                 user: environment.MAIL.AUTH.USER,
                 pass: environment.MAIL.AUTH.PASS

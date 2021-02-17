@@ -7,7 +7,7 @@ import {RegistrationMail} from "../../assets/RegistrationMail";
 import "reflect-metadata";
 
 class RegistrationJob extends BasicJob {
-    private injector;
+    private injector: ReflectiveInjector;
     private mailService: Mailer;
     private userService: UserService;
     private template: RegistrationMail;
@@ -22,16 +22,16 @@ class RegistrationJob extends BasicJob {
         this.template = this.injector.get(RegistrationMail);
     }
 
-    async handle(job, done) {
+    handle = async (job, done) => {
         const {userId} = job.data;
 
         const user = await this.userService.findById(userId);
 
-        const result = this.mailService.send({
-            from: "bullmail@abc.com",
+        const result = await this.mailService.send({
+            from: "mymail@hotmail.com",
             to: user.getEmail(),
             subject: "Account verification",
-            text: "",
+            text: "test",
             html: await this.template.generate(user)
         });
 

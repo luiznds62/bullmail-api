@@ -4,7 +4,7 @@ import {logger} from "../common/Logger";
 import {BasicJob} from "../core/BasicJob";
 import environment from "../common/Environments";
 
-let queues;
+let queues
 
 const redisConfig = {
     redis: {
@@ -28,9 +28,13 @@ try {
 export default {
     queues,
     add(name, payload) {
-        const queue = this.queues.find(queue => queue.name === name);
+        const queue = queues.find(queue => queue.name === name);
 
-        return queue.bull.add(payload, queue.options);
+        try {
+            return queue.bull.add(payload, queue.options);
+        } catch (e) {
+            logger.error(`Error while try to add new Queue (${queue.name}): ${e.message}`);
+        }
     },
     process() {
         logger.info("BullMQ started to process queues");
