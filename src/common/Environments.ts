@@ -12,7 +12,7 @@ export default {
     },
     REDIS: {
         HOST: process.env.REDIS_HOST,
-        PORT: process.env.REDIS_PORT,
+        PORT: parseInt(process.env.REDIS_PORT),
         PASSWORD: process.env.REDIS_PASSWORD
     }
 };

@@ -8,7 +8,7 @@ let queues
 
 const redisConfig = {
     redis: {
-        port: parseInt(environment.REDIS.PORT),
+        port: environment.REDIS.PORT,
         host: environment.REDIS.HOST,
         password: environment.REDIS.PASSWORD
     }

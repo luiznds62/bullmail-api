@@ -21,7 +21,7 @@ export class Mailer {
         this.verifyConnection();
     }
 
-    verifyConnection() {
+    private verifyConnection() {
         this.transporter.verify(function (error) {
             if (error) {
                 logger.error(`An error ocurred while trying to stabilish connection with the mail server: ${error.message}`);
@@ -31,7 +31,7 @@ export class Mailer {
         });
     }
 
-    createTransport() {
+    private createTransport() {
         this.transporter = nodemailer.createTransport({
             host: environment.MAIL.HOST,
             port: environment.MAIL.PORT,
