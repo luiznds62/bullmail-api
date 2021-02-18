@@ -8,4 +8,7 @@ export class UserService extends BasicService<UserRepository, User> {
         super(UserRepository);
     }
 
+    findByEmail(email: string): Promise<User> {
+        return this.findOne({email: email});
+    }
 }
