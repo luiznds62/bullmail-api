@@ -54,11 +54,11 @@ export class BasicEmail {
         <head>
             <meta name="viewport" content="width=device-width" />
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-            <title>{{title}}</title>
-            <style>{{style}}</style>
+            <title>Verification mail</title>
+            <style>{{{style}}}</style>
           </head>
           <body class="">
-            <span class="preheader">{{preheader}}</span>
+            <span class="preheader">{{{preheader}}}</span>
             <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body">
               <tr>
                 <td class="container">
@@ -69,9 +69,10 @@ export class BasicEmail {
                           <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                             <tr>
                               <td>
-                                <p>{{greetings}}</p>
-                                <p>{{content}}</p>
-                                <p>{{ending}}</p>
+                                <p>{{{title}}}</p>
+                                <p>{{{greetings}}}</p>
+                                <p>{{{content}}}</p>
+                                <p>{{{ending}}}</p>
                               </td>
                             </tr>
                           </table>
@@ -97,6 +98,7 @@ export class BasicEmail {
     compile() {
         const data = {
             title: this.title,
+            style: this.style,
             preheader: this.preheader,
             greeting: this.greeting,
             content: this.content,

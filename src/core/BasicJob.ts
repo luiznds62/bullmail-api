@@ -5,7 +5,7 @@ interface IBasicJob {
     handle(job, done);
 }
 
-export class BasicJob implements IBasicJob {
+export abstract class BasicJob implements IBasicJob {
     key: string;
     options: Object;
 

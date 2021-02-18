@@ -4,7 +4,7 @@ import {BasicEntity} from "./BasicEntity";
 import {EventEmitter} from "events";
 import {BasicPage} from "./BasicPage";
 
-export interface IRepository<T> {
+interface IRepository<T> {
     findAll(offset: number, limit: number, sort: string): Promise<BasicPage<T>>;
 
     findById(id);
@@ -20,7 +20,7 @@ export interface IRepository<T> {
     delete(id);
 }
 
-export class BasicRepository<T extends BasicEntity> extends EventEmitter implements IRepository<T> {
+export abstract class BasicRepository<T extends BasicEntity> extends EventEmitter implements IRepository<T> {
     private db: Datastore;
     model;
 

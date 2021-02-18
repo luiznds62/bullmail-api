@@ -6,7 +6,7 @@ import {HTTP_STATUS} from "../common/Constants";
 import {IPaginatedRequest, paginationMiddleware} from "./middleware/PaginationMiddleware";
 import {BasicEntity} from "./BasicEntity";
 
-class BasicController<T extends BasicEntity, K extends BasicService<any, T>, M extends Mapper<T>> {
+abstract class BasicController<T extends BasicEntity, K extends BasicService<any, T>, M extends Mapper<T>> {
     basePath: string;
     model: T;
     service: K;

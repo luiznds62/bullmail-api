@@ -7,12 +7,12 @@ export interface IEntity {
     path?: string
 }
 
-export class BasicEntity implements IEntity {
+export abstract class BasicEntity implements IEntity {
     _id: any;
     path: string;
     creationDate: Date;
 
-    constructor() {
+    protected constructor() {
         this.creationDate = new Date();
     }
 

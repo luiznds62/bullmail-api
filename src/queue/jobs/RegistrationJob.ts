@@ -28,10 +28,10 @@ class RegistrationJob extends BasicJob {
         const user = await this.userService.findById(userId);
 
         const result = await this.mailService.send({
-            from: "Magic Elves <from@example.com>",
-            to: `Mailtrap Inbox ${user.getEmail()}`,
+            from: "BullMail <no-reply@bullmailteam.com>",
+            to: `${user.getName()} ${user.getEmail()}`,
             subject: "Account verification",
-            text: "test",
+            text: "Please confirm your account with the instructions",
             html: await this.template.generate(user)
         });
 

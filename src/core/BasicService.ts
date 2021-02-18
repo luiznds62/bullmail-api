@@ -3,11 +3,11 @@ import {BasicRepository} from "./BasicRepository";
 import {BasicEntity} from "./BasicEntity";
 import {BasicPage} from "./BasicPage";
 
-export class BasicService<R extends BasicRepository<any>, T extends BasicEntity> {
+export abstract class BasicService<R extends BasicRepository<any>, T extends BasicEntity> {
     private injector;
     private repository: R;
 
-    constructor(repository) {
+    protected constructor(repository) {
         this.injector = ReflectiveInjector.resolveAndCreate([repository]);
         this.repository = this.injector.get(repository);
     }
