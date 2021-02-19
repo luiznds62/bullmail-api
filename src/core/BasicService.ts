@@ -1,15 +1,13 @@
-import {ReflectiveInjector} from "injection-js";
 import {BasicRepository} from "./BasicRepository";
 import {BasicEntity} from "./BasicEntity";
 import {BasicPage} from "./BasicPage";
+import {container} from "tsyringe";
 
 export abstract class BasicService<R extends BasicRepository<any>, T extends BasicEntity> {
-    private injector;
     private repository: R;
 
     protected constructor(repository) {
-        this.injector = ReflectiveInjector.resolveAndCreate([repository]);
-        this.repository = this.injector.get(repository);
+        this.repository = container.resolve(repository);
     }
 
     findAll(offset: number, limit: number, sort: string): Promise<BasicPage<T>> {

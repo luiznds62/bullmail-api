@@ -1,7 +1,9 @@
+import {User} from "./User";
 import {UserRepository} from '../user/UserRepository';
 import {BasicService} from "../../core/BasicService";
-import {User} from "./User";
+import {injectable} from "tsyringe";
 
+@injectable()
 export class UserService extends BasicService<UserRepository, User> {
 
     constructor() {

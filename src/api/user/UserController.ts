@@ -1,21 +1,20 @@
+import "reflect-metadata";
+import express from "express";
 import BasicController from '../../core/BasicController';
+import QueueManager from "../../queue/QueueManager";
 import {User} from '../../domain/user/User';
 import {UserService} from '../../domain/user/UserService';
 import {UserMap} from "./UserDto";
 import {JOBS} from "../../common/Constants";
-import {ReflectiveInjector} from "injection-js";
-import QueueManager from "../../queue/QueueManager";
-import express from "express";
+import { container } from 'tsyringe';
 
 class UserController extends BasicController<User, UserService, UserMap> {
-    injector: ReflectiveInjector;
     service: UserService;
 
     constructor() {
         super(User, '/users', UserService, UserMap);
         this.applyRoutes();
-        this.injector = ReflectiveInjector.resolveAndCreate([UserService]);
-        this.service = this.injector.get(UserService);
+        this.service = container.resolve(UserService);
     }
 
     applyRoutes = () => {

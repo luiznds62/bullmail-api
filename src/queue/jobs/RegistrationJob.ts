@@ -1,13 +1,12 @@
+import "reflect-metadata";
 import {BasicJob} from "../../core/BasicJob";
 import {JOBS} from "../../common/Constants";
 import {Mailer} from "../../common/Mailer";
-import {ReflectiveInjector} from "injection-js";
 import {UserService} from "../../domain/user/UserService";
 import {RegistrationMail} from "../../assets/RegistrationMail";
-import "reflect-metadata";
+import { container } from 'tsyringe';
 
 class RegistrationJob extends BasicJob {
-    private injector: ReflectiveInjector;
     private mailService: Mailer;
     private userService: UserService;
     private template: RegistrationMail;
@@ -16,10 +15,9 @@ class RegistrationJob extends BasicJob {
         super();
         this.key = JOBS.REGISTRATION;
         this.options = {};
-        this.injector = ReflectiveInjector.resolveAndCreate([Mailer, UserService, RegistrationMail]);
-        this.mailService = this.injector.get(Mailer);
-        this.userService = this.injector.get(UserService);
-        this.template = this.injector.get(RegistrationMail);
+        this.mailService = container.resolve(Mailer);
+        this.userService = container.resolve(UserService);
+        this.template = container.resolve(RegistrationMail);
     }
 
     handle = async (job, done) => {

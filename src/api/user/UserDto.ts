@@ -1,3 +1,5 @@
+import "reflect-metadata";
+import { injectable } from 'tsyringe';
 import { Mapper } from '../../core/Mapper';
 import { User } from '../../domain/user/User';
 
@@ -8,6 +10,7 @@ export interface UserDto {
   password: string;
 }
 
+@injectable()
 export class UserMap extends Mapper<User> {
   toDomain(raw: any): Promise<User> {
     return User.create({
