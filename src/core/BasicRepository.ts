@@ -74,7 +74,7 @@ export abstract class BasicRepository<T extends BasicEntity> extends EventEmitte
             this.db.findOne(query, (err, doc) => {
                 if (err) reject(err);
 
-                resolve(new this.model(doc));
+                resolve(doc ? new this.model(doc) : undefined);
             });
         });
     }
@@ -94,7 +94,7 @@ export abstract class BasicRepository<T extends BasicEntity> extends EventEmitte
             this.db.findOne({_id: _id}, (err, doc) => {
                 if (err) reject(err);
 
-                resolve(new this.model(doc));
+                resolve(doc ? new this.model(doc) : undefined);
             });
         });
     }

@@ -24,9 +24,9 @@ export class Mailer {
     private verifyConnection() {
         this.transporter.verify(function (error) {
             if (error) {
-                logger.error(`An error ocurred while trying to stabilish connection with the mail server: ${error.message}`);
+                logger.debug(`An error ocurred while trying to stabilish connection with the mail server: ${error.message}`);
             } else {
-                logger.info("Mail Server is ready to receive messages");
+                logger.debug("Mail Server is ready to receive messages");
             }
         });
     }

@@ -7,7 +7,7 @@ import {
 } from 'class-validator';
 import {UserService} from "../../domain/user/UserService";
 
-@ValidatorConstraint({async: false})
+@ValidatorConstraint({async: true})
 export class IsUserAlreadyExistConstraint implements ValidatorConstraintInterface {
     async validate(email: any, args: ValidationArguments) {
         const userService = new UserService();

@@ -5,6 +5,7 @@ import {IsDefined, IsEmail, IsString, Length} from "class-validator";
 import {BCRYPT} from "../../common/Constants";
 import {logger} from "../../common/Logger";
 import "reflect-metadata";
+import { IsUserAlreadyExist } from "../../core/validators/IsUserAlreadyExistConstraint";
 
 interface UserProps extends IEntity {
     name: string;
@@ -21,6 +22,9 @@ class User extends BasicEntity {
 
     @IsDefined()
     @IsEmail()
+    @IsUserAlreadyExist({
+        message: "E-mail $value is already in use"
+    })
     private email: string;
 
     @IsDefined()
@@ -79,11 +83,14 @@ class User extends BasicEntity {
         }
     }
 
-    public static create(props: UserProps): Result<User> {
+    public static async create(props: UserProps) {
         const user = new User({...props});
-        this.validate(user);
 
-        return Result.ok<User>(user);
+        try {
+            return Result.ok<User>(await <User><unknown>this.validate(user));
+        } catch (error) {
+            throw error;
+        }
     }
 }
 
