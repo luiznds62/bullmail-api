@@ -5,7 +5,6 @@ import { Mapper } from './Mapper';
 import { HTTP_STATUS } from '../common/Constants';
 import { IPaginatedRequest, paginationMiddleware } from './middleware/PaginationMiddleware';
 import { BasicEntity } from './BasicEntity';
-import { Inject } from 'typescript-ioc';
 
 abstract class BasicController<T extends BasicEntity, K extends BasicService<any, T>, M extends Mapper<T>> {
   basePath: string;

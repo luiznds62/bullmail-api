@@ -1,8 +1,8 @@
 import express from 'express';
 import EventEmitter from 'events';
 import environment from '../common/Environments';
-import {logger} from '../common/Logger';
-import {errorHandler} from '../common/ErrorHandler';
+import { logger } from '../common/Logger';
+import { errorHandler } from '../common/ErrorHandler';
 import methodOverride from 'method-override';
 import * as bodyParser from 'body-parser';
 import * as routes from '../api/router';
@@ -37,7 +37,7 @@ export default class Server extends EventEmitter {
     start() {
         return new Promise((resolve, reject) => {
             try {
-                this.application.use(bodyParser.urlencoded({extended: true}));
+                this.application.use(bodyParser.urlencoded({ extended: true }));
                 this.application.use(bodyParser.json());
                 this.application.use(methodOverride());
                 this.application.listen(environment.SERVER.PORT);

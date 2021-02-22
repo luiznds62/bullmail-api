@@ -1,13 +1,13 @@
 import "reflect-metadata";
-import {BasicJob} from "../../core/BasicJob";
-import {JOBS} from "../../common/Constants";
-import {Mailer} from "../../common/Mailer";
-import {UserService} from "../../domain/user/UserService";
-import {RegistrationMail} from "../../assets/RegistrationMail";
+import { BasicJob } from "../../core/BasicJob";
+import { JOBS } from "../../common/Constants";
+import { Mailer } from "../../common/Mailer";
+import { UserService } from "../../domain/user/UserService";
+import { RegistrationMail } from "../../assets/RegistrationMail";
 import { Inject } from "typescript-ioc";
 
 class RegistrationJob extends BasicJob {
-    
+
     @Inject
     private mailService: Mailer;
 
@@ -24,7 +24,7 @@ class RegistrationJob extends BasicJob {
     }
 
     handle = async (job, done) => {
-        const {userId} = job.data;
+        const { userId } = job.data;
 
         const user = await this.userService.findById(userId);
 

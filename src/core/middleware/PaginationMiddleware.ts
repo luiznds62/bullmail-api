@@ -1,5 +1,5 @@
 import express from "express";
-import {BadRequestError} from "../exception/BadRequestError";
+import { BadRequestError } from "../exception/BadRequestError";
 
 export interface IPaginatedRequest extends express.Request {
     pagination: {

@@ -1,5 +1,5 @@
-import {BasicEmail} from "./BasicEmail";
-import {User} from "../domain/user/User";
+import { BasicEmail } from "./BasicEmail";
+import { User } from "../domain/user/User";
 
 export class RegistrationMail extends BasicEmail {
 

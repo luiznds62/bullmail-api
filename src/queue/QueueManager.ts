@@ -1,7 +1,7 @@
 import Queue from "bull";
 import * as jobs from "./jobs";
-import {logger} from "../common/Logger";
-import {BasicJob} from "../core/BasicJob";
+import { logger } from "../common/Logger";
+import { BasicJob } from "../core/BasicJob";
 import environment from "../common/Environments";
 
 let queues

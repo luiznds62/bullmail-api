@@ -1,1 +1,1 @@
-export {default as RegistrationJob} from "./RegistrationJob";
+export { default as RegistrationJob } from "./RegistrationJob";

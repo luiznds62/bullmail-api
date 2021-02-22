@@ -1,6 +1,6 @@
-import {validate} from "class-validator";
-import {ValidationError} from "./exception/ValidationError";
-import {HTTP_STATUS} from "../common/Constants";
+import { validate } from "class-validator";
+import { ValidationError } from "./exception/ValidationError";
+import { HTTP_STATUS } from "../common/Constants";
 
 export interface IEntity {
     _id: any;
@@ -16,11 +16,11 @@ export abstract class BasicEntity implements IEntity {
         this.creationDate = new Date();
     }
 
-    public static validate(model) : Promise<any> {
+    public static validate(model): Promise<any> {
         return validate(model).then(errors => {
-            if(errors.length > 0) {
+            if (errors.length > 0) {
                 throw new ValidationError(HTTP_STATUS.VALIDATION_ERROR, Object.values(errors[0].constraints)[0]);
-            }else{
+            } else {
                 return model;
             }
         });

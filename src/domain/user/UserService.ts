@@ -1,6 +1,6 @@
-import {User} from "./User";
-import {UserRepository} from '../user/UserRepository';
-import {BasicService} from "../../core/BasicService";
+import { User } from "./User";
+import { UserRepository } from '../user/UserRepository';
+import { BasicService } from "../../core/BasicService";
 
 export class UserService extends BasicService<UserRepository, User> {
 
@@ -9,6 +9,6 @@ export class UserService extends BasicService<UserRepository, User> {
     }
 
     findByEmail(email: string): Promise<User> {
-        return this.findOne({email: email});
+        return this.findOne({ email: email });
     }
 }

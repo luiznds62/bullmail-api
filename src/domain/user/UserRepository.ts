@@ -1,9 +1,9 @@
 import { User } from "./User";
-import {BasicRepository} from "../../core/BasicRepository";
+import { BasicRepository } from "../../core/BasicRepository";
 
 export class UserRepository extends BasicRepository<User> {
 
-    constructor(){
+    constructor() {
         super(User);
     }
 

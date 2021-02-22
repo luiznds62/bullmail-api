@@ -1,8 +1,8 @@
 import Datastore from 'nedb';
-import {logger} from "../common/Logger";
-import {BasicEntity} from "./BasicEntity";
-import {EventEmitter} from "events";
-import {BasicPage} from "./BasicPage";
+import { logger } from "../common/Logger";
+import { BasicEntity } from "./BasicEntity";
+import { EventEmitter } from "events";
+import { BasicPage } from "./BasicPage";
 import { NotFoundError } from './exception/NotFoundError';
 
 interface IRepository<T> {
@@ -92,7 +92,7 @@ export abstract class BasicRepository<T extends BasicEntity> extends EventEmitte
 
     findById(_id): Promise<T> {
         return new Promise((resolve, reject) => {
-            this.db.findOne({_id: _id}, (err, doc) => {
+            this.db.findOne({ _id: _id }, (err, doc) => {
                 if (err) reject(err);
 
                 resolve(doc ? new this.model(doc) : reject(new NotFoundError("Document not found")));
@@ -102,7 +102,7 @@ export abstract class BasicRepository<T extends BasicEntity> extends EventEmitte
 
     create(model): Promise<T> {
         return new Promise((resolve, reject) => {
-            this.emit("create", {model});
+            this.emit("create", { model });
             this.db.insert(model, (err, newDoc) => {
                 if (err) reject(err);
 
@@ -113,8 +113,8 @@ export abstract class BasicRepository<T extends BasicEntity> extends EventEmitte
 
     merge(_id, model): Promise<T> {
         return new Promise((resolve, reject) => {
-            this.emit("merge", {_id, model});
-            this.db.update({_id: _id}, model, {}, (err, numReplaced) => {
+            this.emit("merge", { _id, model });
+            this.db.update({ _id: _id }, model, {}, (err, numReplaced) => {
                 if (err) reject(err);
                 resolve(this.findById(_id));
             });
@@ -123,7 +123,7 @@ export abstract class BasicRepository<T extends BasicEntity> extends EventEmitte
 
     delete(_id): Promise<Number> {
         return new Promise((resolve, reject) => {
-            this.db.remove({_id: _id}, {}, (err, numRemoved) => {
+            this.db.remove({ _id: _id }, {}, (err, numRemoved) => {
                 if (err) reject(err);
 
                 resolve(numRemoved);
