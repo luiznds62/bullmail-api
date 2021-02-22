@@ -1,9 +1,9 @@
 import {User} from "./User";
 import {UserRepository} from '../user/UserRepository';
 import {BasicService} from "../../core/BasicService";
-import {injectable} from "tsyringe";
+import { Singleton } from "typescript-ioc";
 
-@injectable()
+@Singleton 
 export class UserService extends BasicService<UserRepository, User> {
 
     constructor() {

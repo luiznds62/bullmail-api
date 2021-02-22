@@ -5,10 +5,17 @@ import {Mailer} from "../../common/Mailer";
 import {UserService} from "../../domain/user/UserService";
 import {RegistrationMail} from "../../assets/RegistrationMail";
 import { container } from 'tsyringe';
+import { Inject } from "typescript-ioc";
 
 class RegistrationJob extends BasicJob {
+    
+    @Inject
     private mailService: Mailer;
+
+    @Inject
     private userService: UserService;
+
+    @Inject
     private template: RegistrationMail;
 
     constructor() {

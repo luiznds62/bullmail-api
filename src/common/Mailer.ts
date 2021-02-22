@@ -1,6 +1,6 @@
 import * as nodemailer from "nodemailer";
+import { Singleton } from "typescript-ioc";
 import environment from "../common/Environments";
-import {injectable} from "tsyringe";
 import {logger} from "./Logger";
 
 interface IEmailOptions {
@@ -10,8 +10,7 @@ interface IEmailOptions {
     text?: string;
     html?: string;
 }
-
-@injectable()
+@Singleton 
 export class Mailer {
 
     private transporter: any;

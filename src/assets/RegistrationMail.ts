@@ -1,8 +1,6 @@
 import {BasicEmail} from "./BasicEmail";
 import {User} from "../domain/user/User";
-import {Injectable} from "injection-js";
 
-@Injectable()
 export class RegistrationMail extends BasicEmail {
 
     constructor() {

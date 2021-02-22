@@ -1,7 +1,5 @@
 import * as Handlebars from "handlebars";
-import {Injectable} from "injection-js";
 
-@Injectable()
 export class BasicEmail {
     private template
     private style: string;

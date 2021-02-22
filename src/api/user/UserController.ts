@@ -6,15 +6,15 @@ import {User} from '../../domain/user/User';
 import {UserService} from '../../domain/user/UserService';
 import {UserMap} from "./UserDto";
 import {JOBS} from "../../common/Constants";
-import { container } from 'tsyringe';
+import { Inject } from "typescript-ioc";
 
 class UserController extends BasicController<User, UserService, UserMap> {
+    @Inject
     service: UserService;
 
     constructor() {
         super(User, '/users', UserService, UserMap);
         this.applyRoutes();
-        this.service = container.resolve(UserService);
     }
 
     applyRoutes = () => {

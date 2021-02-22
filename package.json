@@ -12,18 +12,18 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "2.4.3",
-    "bull": "^3.20.1",
+    "bull": "3.20.1",
     "bunyan": "1.8.15",
     "bunyan-format": "0.2.1",
     "class-validator": "0.13.1",
     "dotenv": "8.2.0",
     "express": "4.17.1",
-    "handlebars": "^4.7.6",
+    "handlebars": "4.7.6",
     "method-override": "3.0.0",
     "nedb": "1.8.0",
-    "nodemailer": "^6.4.18",
-    "reflect-metadata": "^0.1.13",
-    "tsyringe": "^4.4.0"
+    "nodemailer": "6.4.18",
+    "reflect-metadata": "0.1.13",
+    "typescript-ioc": "^3.2.2"
   },
   "devDependencies": {
     "@types/bunyan": "1.8.6",
