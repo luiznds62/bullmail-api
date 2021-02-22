@@ -1,11 +1,11 @@
-import "reflect-metadata";
+import 'reflect-metadata';
 import express from 'express';
 import { BasicService } from './BasicService';
 import { Mapper } from './Mapper';
 import { HTTP_STATUS } from '../common/Constants';
 import { IPaginatedRequest, paginationMiddleware } from './middleware/PaginationMiddleware';
 import { BasicEntity } from './BasicEntity';
-import { container } from 'tsyringe';
+import { Inject } from 'typescript-ioc';
 
 abstract class BasicController<T extends BasicEntity, K extends BasicService<any, T>, M extends Mapper<T>> {
   basePath: string;
@@ -14,12 +14,12 @@ abstract class BasicController<T extends BasicEntity, K extends BasicService<any
   mapper: M;
   router: express.Router;
 
-  constructor(model, path, service, mapper) {
+  constructor(model, path: string, service, mapper) {
     this.router = express.Router();
     this.basePath = path;
     this.model = new model();
-    this.service = container.resolve(service);
-    this.mapper = container.resolve(mapper);
+    this.service = new service();
+    this.mapper = new mapper();
   }
 
   findAll = [

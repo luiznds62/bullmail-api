@@ -1,40 +1,40 @@
-import {BasicRepository} from "./BasicRepository";
-import {BasicEntity} from "./BasicEntity";
-import {BasicPage} from "./BasicPage";
-import {container} from "tsyringe";
+import { BasicRepository } from './BasicRepository';
+import { BasicEntity } from './BasicEntity';
+import { BasicPage } from './BasicPage';
+import { Inject } from 'typescript-ioc';
 
 export abstract class BasicService<R extends BasicRepository<any>, T extends BasicEntity> {
-    private repository: R;
+  private repository: R;
 
-    protected constructor(repository) {
-        this.repository = container.resolve(repository);
-    }
+  protected constructor(repository) {
+    this.repository = new repository();
+  }
 
-    findAll(offset: number, limit: number, sort: string): Promise<BasicPage<T>> {
-        return this.repository.findAll(offset, limit, sort);
-    }
+  findAll(offset: number, limit: number, sort: string): Promise<BasicPage<T>> {
+    return this.repository.findAll(offset, limit, sort);
+  }
 
-    find(query): Promise<T[]> {
-        return this.repository.find(query);
-    }
+  find(query): Promise<T[]> {
+    return this.repository.find(query);
+  }
 
-    findOne(query) : Promise<T> {
-        return this.repository.findOne(query);
-    }
+  findOne(query): Promise<T> {
+    return this.repository.findOne(query);
+  }
 
-    findById(id): Promise<T> {
-        return this.repository.findById(id);
-    }
+  findById(id): Promise<T> {
+    return this.repository.findById(id);
+  }
 
-    create(model): Promise<T> {
-        return this.repository.create(model);
-    }
+  create(model): Promise<T> {
+    return this.repository.create(model);
+  }
 
-    merge(id, model): Promise<T> {
-        return this.repository.merge(id, model);
-    }
+  merge(id, model): Promise<T> {
+    return this.repository.merge(id, model);
+  }
 
-    delete(id): Promise<Number> {
-        return this.repository.delete(id);
-    }
+  delete(id): Promise<Number> {
+    return this.repository.delete(id);
+  }
 }

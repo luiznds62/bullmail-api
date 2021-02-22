@@ -3,6 +3,7 @@ import {logger} from "../common/Logger";
 import {BasicEntity} from "./BasicEntity";
 import {EventEmitter} from "events";
 import {BasicPage} from "./BasicPage";
+import { NotFoundError } from './exception/NotFoundError';
 
 interface IRepository<T> {
     findAll(offset: number, limit: number, sort: string): Promise<BasicPage<T>>;
@@ -74,7 +75,7 @@ export abstract class BasicRepository<T extends BasicEntity> extends EventEmitte
             this.db.findOne(query, (err, doc) => {
                 if (err) reject(err);
 
-                resolve(doc ? new this.model(doc) : undefined);
+                resolve(doc ? new this.model(doc) : reject(new NotFoundError("Document not found")));
             });
         });
     }
@@ -84,7 +85,7 @@ export abstract class BasicRepository<T extends BasicEntity> extends EventEmitte
             this.db.find(query, (err, docs) => {
                 if (err) reject(err);
 
-                resolve(docs.map(doc => new this.model(doc)));
+                resolve(docs ? docs.map(doc => new this.model(doc)) : reject(new NotFoundError("Documents not found")));
             });
         });
     }
@@ -94,7 +95,7 @@ export abstract class BasicRepository<T extends BasicEntity> extends EventEmitte
             this.db.findOne({_id: _id}, (err, doc) => {
                 if (err) reject(err);
 
-                resolve(doc ? new this.model(doc) : undefined);
+                resolve(doc ? new this.model(doc) : reject(new NotFoundError("Document not found")));
             });
         });
     }

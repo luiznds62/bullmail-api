@@ -4,7 +4,6 @@ import {JOBS} from "../../common/Constants";
 import {Mailer} from "../../common/Mailer";
 import {UserService} from "../../domain/user/UserService";
 import {RegistrationMail} from "../../assets/RegistrationMail";
-import { container } from 'tsyringe';
 import { Inject } from "typescript-ioc";
 
 class RegistrationJob extends BasicJob {
@@ -22,9 +21,6 @@ class RegistrationJob extends BasicJob {
         super();
         this.key = JOBS.REGISTRATION;
         this.options = {};
-        this.mailService = container.resolve(Mailer);
-        this.userService = container.resolve(UserService);
-        this.template = container.resolve(RegistrationMail);
     }
 
     handle = async (job, done) => {
