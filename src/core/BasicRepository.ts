@@ -75,7 +75,7 @@ export abstract class BasicRepository<T extends BasicEntity> extends EventEmitte
             this.db.findOne(query, (err, doc) => {
                 if (err) reject(err);
 
-                resolve(doc ? new this.model(doc) : reject(new NotFoundError("Document not found")));
+                resolve(doc ? new this.model(doc) : undefined);
             });
         });
     }
@@ -85,7 +85,7 @@ export abstract class BasicRepository<T extends BasicEntity> extends EventEmitte
             this.db.find(query, (err, docs) => {
                 if (err) reject(err);
 
-                resolve(docs ? docs.map(doc => new this.model(doc)) : reject(new NotFoundError("Documents not found")));
+                resolve(docs ? docs.map(doc => new this.model(doc)) : undefined);
             });
         });
     }
@@ -95,7 +95,7 @@ export abstract class BasicRepository<T extends BasicEntity> extends EventEmitte
             this.db.findOne({ _id: _id }, (err, doc) => {
                 if (err) reject(err);
 
-                resolve(doc ? new this.model(doc) : reject(new NotFoundError("Document not found")));
+                resolve(doc ? new this.model(doc) : undefined);
             });
         });
     }
@@ -114,6 +114,7 @@ export abstract class BasicRepository<T extends BasicEntity> extends EventEmitte
     merge(_id, model): Promise<T> {
         return new Promise((resolve, reject) => {
             this.emit("merge", { _id, model });
+            delete model["_id"];
             this.db.update({ _id: _id }, model, {}, (err, numReplaced) => {
                 if (err) reject(err);
                 resolve(this.findById(_id));

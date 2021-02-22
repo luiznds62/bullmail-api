@@ -62,7 +62,8 @@ abstract class BasicController<T extends BasicEntity, K extends BasicService<any
 
   merge = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
-      const model: T = await this.service.merge(req.params.id, this.mapper.toDomain(req.body));
+      const representation = await this.mapper.toDomain(req.body);
+      const model: T = await this.service.merge(req.params.id, representation);
       res.json(this.mapper.toDTO(model));
       next();
     } catch (error) {
