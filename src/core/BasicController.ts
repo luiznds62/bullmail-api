@@ -5,6 +5,7 @@ import { Mapper } from './Mapper';
 import { HTTP_STATUS } from '../common/Constants';
 import { IPaginatedRequest, paginationMiddleware } from './middleware/PaginationMiddleware';
 import { BasicEntity } from './BasicEntity';
+import { Inject } from 'typescript-ioc';
 
 abstract class BasicController<T extends BasicEntity, K extends BasicService<any, T>, M extends Mapper<T>> {
   basePath: string;
@@ -13,12 +14,12 @@ abstract class BasicController<T extends BasicEntity, K extends BasicService<any
   mapper: M;
   router: express.Router;
 
-  constructor(model, path: string, service, mapper) {
+  constructor(model, path: string, @Inject service: K, @Inject mapper: M) {
     this.router = express.Router();
     this.basePath = path;
     this.model = new model();
-    this.service = new service();
-    this.mapper = new mapper();
+    this.service = service;
+    this.mapper = mapper;
   }
 
   findAll = [

@@ -3,7 +3,6 @@ import { logger } from "../common/Logger";
 import { BasicEntity } from "./BasicEntity";
 import { EventEmitter } from "events";
 import { BasicPage } from "./BasicPage";
-import { NotFoundError } from './exception/NotFoundError';
 
 interface IRepository<T> {
     findAll(offset: number, limit: number, sort: string): Promise<BasicPage<T>>;
