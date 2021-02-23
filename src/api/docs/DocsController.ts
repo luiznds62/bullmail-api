@@ -1,9 +1,9 @@
 import express from 'express';
-import swaggerUi from 'swagger-ui-express';
+const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../../assets/docs/swagger_output.json');
 
 class DocsController {
-  basePath: string = '/docs';
+  basePath: string = '/';
 
   private router: express.Router = express.Router();
 
@@ -13,7 +13,7 @@ class DocsController {
   }
 
   applyRoutes = () => {
-    this.router.get('/', swaggerUi.setup(swaggerDocument));
+    this.router.get('/api-docs', swaggerUi.setup(swaggerDocument));
   };
 }
 
