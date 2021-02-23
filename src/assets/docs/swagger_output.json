@@ -2,17 +2,35 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "REST API",
-    "description": ""
+    "title": "BullMail - API",
+    "description": "API for registering users and send e-mails via nodemailer with BullMQ."
   },
   "host": "localhost:3000",
   "basePath": "/",
-  "tags": [],
-  "schemes": [
-    "http"
+  "tags": [
+    {
+      "name": "Users",
+      "description": "Base domain of the application"
+    }
   ],
-  "consumes": [],
-  "produces": [],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyAuth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "X-API-KEY",
+      "description": "No need for this yet"
+    }
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
   "paths": {
     "/": {
       "post": {
@@ -31,5 +49,23 @@
       }
     }
   },
-  "definitions": {}
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Jhon Doe"
+        },
+        "email": {
+          "type": "string",
+          "example": "jhondoe@email.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "123456"
+        }
+      }
+    }
+  }
 }

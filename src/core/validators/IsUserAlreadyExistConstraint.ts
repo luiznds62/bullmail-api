@@ -9,11 +9,11 @@ export class IsUserAlreadyExistConstraint implements ValidatorConstraintInterfac
 
   async validate(email: any, args: ValidationArguments) {
     const user = await this.userService.findByEmail(email);
-    if (user.getEmail() === email) {
-      return true;
+    if (user && user.getEmail() === email) {
+      return false;
     }
 
-    return user ? false : true;
+    return true;
   }
 }
 
