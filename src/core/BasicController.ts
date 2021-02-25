@@ -37,7 +37,7 @@ abstract class BasicController<T extends BasicEntity, K extends BasicService<any
       } catch (error) {
         next(error);
       }
-    },
+    }
   ];
 
   findById = async (req: express.Request, res: express.Response, next: express.NextFunction) => {

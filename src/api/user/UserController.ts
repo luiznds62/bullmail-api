@@ -24,18 +24,12 @@ class UserController extends BasicController<User, UserService, UserMap> {
     this.router.delete('/:id', this.delete);
   };
 
-  sendRegistrationMail = async (
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-  ) => {
+  sendRegistrationMail = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
       const user = await this.service.findOne({ name: req.body.name });
       await QueueManager.add(JOBS.REGISTRATION, { userId: user.getId() });
     } catch (e) {
-      throw new Error(
-        `Error while trying to send registration mail: ${e.message}`
-      );
+      throw new Error(`Error while trying to send registration mail: ${e.message}`);
     } finally {
       next();
     }
