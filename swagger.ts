@@ -15,12 +15,6 @@ const doc = {
     schemes: ['http', 'https'],
     consumes: ['application/json'],
     produces: ['application/json'],
-    tags: [
-        {
-            "name": "Users",
-            "description": "Base domain of the application"
-        }
-    ],
     securityDefinitions: {
         apiKeyAuth:{
             type: "apiKey",

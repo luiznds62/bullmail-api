@@ -7,12 +7,7 @@
   },
   "host": "localhost:3000",
   "basePath": "/",
-  "tags": [
-    {
-      "name": "Users",
-      "description": "Base domain of the application"
-    }
-  ],
+  "tags": [],
   "schemes": [
     "http",
     "https"

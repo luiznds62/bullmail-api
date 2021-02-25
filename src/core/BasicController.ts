@@ -14,8 +14,8 @@ abstract class BasicController<T extends BasicEntity, K extends BasicService<any
   mapper: M;
   router: express.Router;
 
-  constructor(model, path: string, @Inject service: K, @Inject mapper: M) {
-    this.router = express.Router();
+  constructor(router: express.Router, model, path: string, @Inject service: K, @Inject mapper: M) {
+    this.router = router;
     this.basePath = path;
     this.model = new model();
     this.service = service;

@@ -8,12 +8,13 @@ import { UserMap } from "./UserDto";
 import { JOBS } from "../../common/Constants";
 import { Inject } from "typescript-ioc";
 
+//#swagger.tags = ['Users']
 class UserController extends BasicController<User, UserService, UserMap> {
     @Inject
     service: UserService;
 
-    constructor() {
-        super(User, '/users', new UserService, new UserMap);
+    constructor(router: express.Router) {
+        super(router, User, '/users', new UserService, new UserMap);
         this.applyRoutes();
     }
 
@@ -37,4 +38,4 @@ class UserController extends BasicController<User, UserService, UserMap> {
     }
 }
 
-export default new UserController();
+export {UserController};

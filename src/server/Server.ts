@@ -5,7 +5,7 @@ import { logger } from '../common/Logger';
 import { errorHandler } from '../common/ErrorHandler';
 import methodOverride from 'method-override';
 import * as bodyParser from 'body-parser';
-import * as routes from '../api/router';
+import router from '../api/router';
 
 export default class Server extends EventEmitter {
     application: express.Application;
@@ -27,10 +27,7 @@ export default class Server extends EventEmitter {
     }
 
     initRoutes() {
-        Object.values(routes).forEach((route) => {
-            this.application.use((<any>route).basePath, (<any>route).router);
-        });
-
+        this.application.use(router);
         this.application.use(errorHandler);
     }
 
