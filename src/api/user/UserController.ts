@@ -11,8 +11,8 @@ class UserController extends BasicController<User, UserService, UserMap> {
   @Inject
   service: UserService;
 
-  constructor(router: express.Router) {
-    super(router, User, '/users', new UserService(), new UserMap());
+  constructor() {
+    super(User, '/users', new UserService(), new UserMap());
     this.applyRoutes();
   }
 
@@ -36,4 +36,4 @@ class UserController extends BasicController<User, UserService, UserMap> {
   };
 }
 
-export { UserController };
+export default new UserController();

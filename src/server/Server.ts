@@ -1,11 +1,11 @@
 import express from 'express';
-import * as bodyParser from 'body-parser';
 import EventEmitter from 'events';
 import environment from '../common/Environments';
 import { logger } from '../common/Logger';
 import { errorHandler } from '../common/ErrorHandler';
 import methodOverride from 'method-override';
-import router from '../api/router';
+import * as bodyParser from 'body-parser';
+import * as routes from '../api/router';
 
 export default class Server extends EventEmitter {
   application: express.Application;
@@ -28,7 +28,10 @@ export default class Server extends EventEmitter {
   }
 
   initRoutes() {
-    this.application.use(router);
+    Object.values(routes).forEach((route) => {
+      this.application.use((<any>route).basePath, (<any>route).router);
+    });
+
     this.application.use(errorHandler);
   }
 

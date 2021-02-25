@@ -5,10 +5,9 @@ const swaggerDocument = require('../../assets/docs/swagger_output.json');
 class DocsController {
   basePath: string = '/';
 
-  router: express.Router;
+  router: express.Router = express.Router();
 
-  constructor(router: express.Router) {
-    this.router = router;
+  constructor() {
     this.router.use(this.basePath, swaggerUi.serve);
     this.applyRoutes();
   }
@@ -18,4 +17,4 @@ class DocsController {
   };
 }
 
-export {DocsController}
+export default new DocsController();
