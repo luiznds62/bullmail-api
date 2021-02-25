@@ -26,24 +26,7 @@
   "produces": [
     "application/json"
   ],
-  "paths": {
-    "/": {
-      "post": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{id}": {
-      "delete": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    }
-  },
+  "paths": {},
   "definitions": {
     "User": {
       "type": "object",

@@ -16,11 +16,19 @@ abstract class BasicController<T extends BasicEntity, K extends BasicService<any
 
   constructor(router: express.Router, model, path: string, @Inject service: K, @Inject mapper: M) {
     this.router = router;
-    this.basePath = path;
     this.model = new model();
+    this.basePath = path;
     this.service = service;
     this.mapper = mapper;
   }
+
+  getName = (): string => {
+    return this.basePath;
+  };
+
+  getRouter = (): express.Router => {
+    return this.router;
+  };
 
   findAll = [
     paginationMiddleware,

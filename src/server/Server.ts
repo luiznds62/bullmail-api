@@ -1,10 +1,10 @@
 import express from 'express';
+import * as bodyParser from 'body-parser';
 import EventEmitter from 'events';
 import environment from '../common/Environments';
 import { logger } from '../common/Logger';
 import { errorHandler } from '../common/ErrorHandler';
 import methodOverride from 'method-override';
-import * as bodyParser from 'body-parser';
 import router from '../api/router';
 
 export default class Server extends EventEmitter {

@@ -2,6 +2,7 @@ import { BasicRepository } from './BasicRepository';
 import { BasicEntity } from './BasicEntity';
 import { BasicPage } from './BasicPage';
 import { Inject } from 'typescript-ioc';
+import { NotFoundError } from './exception/NotFoundError';
 
 export abstract class BasicService<R extends BasicRepository<any>, T extends BasicEntity> {
   private repository: R;
@@ -18,12 +19,22 @@ export abstract class BasicService<R extends BasicRepository<any>, T extends Bas
     return this.repository.find(query);
   }
 
-  findOne(query): Promise<T> {
-    return this.repository.findOne(query);
+  async findOne(query): Promise<T> {
+    const model: T = await this.repository.findOne(query);
+    if (!model) {
+      throw new NotFoundError('Document not found');
+    }
+
+    return model;
   }
 
-  findById(id): Promise<T> {
-    return this.repository.findById(id);
+  async findById(id): Promise<T> {
+    const model: T = await this.repository.findById(id);
+    if (!model) {
+      throw new NotFoundError('Document not found');
+    }
+
+    return model;
   }
 
   create(model): Promise<T> {
