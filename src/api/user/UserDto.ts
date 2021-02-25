@@ -1,4 +1,4 @@
-import "reflect-metadata";
+import 'reflect-metadata';
 import { Mapper } from '../../core/Mapper';
 import { User } from '../../domain/user/User';
 
@@ -15,7 +15,7 @@ export class UserMap extends Mapper<User> {
       _id: raw._id,
       name: raw.name,
       email: raw.email,
-      password: raw.password,
+      password: raw.password
     })
       .then((result) => {
         return result.isSuccess ? result.getValue() : null;
@@ -30,7 +30,7 @@ export class UserMap extends Mapper<User> {
       _id: t.getId(),
       name: t.getName(),
       email: t.getEmail(),
-      password: t.getPassword(),
+      password: t.getPassword()
     };
   }
 }

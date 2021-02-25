@@ -1,0 +1,10 @@
+{
+    "extends": ["plugin:prettier/recommended"],
+    "plugins": ["prettier"],
+    "rules": {
+        "prettier/prettier": "error",
+        "eqeqeq": "warn",
+        "strict": "off",
+        "class-methods-use-this": "true"
+    }
+}
