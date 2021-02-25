@@ -4,9 +4,7 @@ import { UserController } from './user/UserController';
 
 const router = express.Router();
 
-const x = new DocsController(router).router;
-const y = new UserController(router).router;
-router.use(x);
-router.use(y);
+router.use(new DocsController(router).router);
+router.use(new UserController(router).router);
 
 export default router;
