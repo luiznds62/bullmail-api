@@ -62,13 +62,13 @@
         "parameters": [
           {
             "in": "body",
-            "description": "The user to create",
+            "name": "",
+            "description": "The new User to create",
             "schema": {
               "$ref": "#/definitions/User"
             }
           }
         ],
-        "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "OK",
