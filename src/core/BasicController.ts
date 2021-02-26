@@ -53,6 +53,7 @@ abstract class BasicController<T extends BasicEntity, K extends BasicService<any
     try {
       const representation = await this.mapper.toDomain(req.body);
       const model: T = await this.service.create(representation);
+      res.status(HTTP_STATUS.CREATED);
       res.json(this.mapper.toDTO(model));
       next();
     } catch (error) {
