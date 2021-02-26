@@ -1,6 +1,6 @@
 import express from 'express';
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('../../assets/docs/swagger_output.json');
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from '../../assets/docs/swagger.json';
 
 class DocsController {
   basePath: string = '/';
