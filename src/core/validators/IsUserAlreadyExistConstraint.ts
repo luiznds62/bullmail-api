@@ -5,13 +5,14 @@ import { UserService } from '../../domain/user/UserService';
 @ValidatorConstraint({ async: true })
 export class IsUserAlreadyExistConstraint implements ValidatorConstraintInterface {
 
-  private userService: UserService = new UserService();
+  @Inject
+  private userService: UserService;
 
   async validate(email: any, args: ValidationArguments) {
-    const user = await this.userService.findByEmail(email);
-    if (user && user.getEmail() === email) {
-      return false;
-    }
+    // const user = await this.userService.findByEmail(email);
+    // if (user && user.getEmail() === email) {
+    //   return false;
+    // }
 
     return true;
   }
