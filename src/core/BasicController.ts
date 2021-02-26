@@ -6,6 +6,7 @@ import { HTTP_STATUS } from '../common/Constants';
 import { IPaginatedRequest, paginationMiddleware } from './middleware/PaginationMiddleware';
 import { BasicEntity } from './BasicEntity';
 import { Inject } from 'typescript-ioc';
+import { NotFoundError } from './exception/NotFoundError';
 
 abstract class BasicController<T extends BasicEntity, K extends BasicService<any, T>, M extends Mapper<T>> {
   basePath: string;
@@ -42,6 +43,10 @@ abstract class BasicController<T extends BasicEntity, K extends BasicService<any
   findById = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
       const model: T = await this.service.findById(req.params.id);
+      if(!model){
+        throw new NotFoundError("Document not found");
+      }
+
       res.json(this.mapper.toDTO(model));
       next();
     } catch (error) {

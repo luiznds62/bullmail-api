@@ -62,7 +62,7 @@
         "parameters": [
           {
             "in": "body",
-            "name": "",
+            "name": "user",
             "description": "The new User to create",
             "schema": {
               "$ref": "#/definitions/User"
@@ -70,8 +70,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "CREATED",
             "schema": {
               "$ref": "#/definitions/User"
             }
@@ -82,16 +82,7 @@
         }
       }
     },
-    "/users/{id}": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "description": "ID of the user that we want to match",
-          "type": "string"
-        }
-      ],
+    "/users/{id}": {      
       "get": {
         "tags": ["Users"],
         "summary": "Get user with given ID",
@@ -114,24 +105,13 @@
             }
           },
           "404": {
-            "description": "Failed. user not found."
+            "description": "Document not found"
           }
         }
       },
       "put": {
         "summary": "Update user with given ID",
         "tags": ["Users"],
-        "requestBody": {
-          "description": "user Object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/definitions/User"
-              }
-            }
-          }
-        },
         "parameters": [
           {
             "in": "path",
@@ -140,6 +120,14 @@
             "description": "user with new values of properties",
             "schema": {
               "$ref": "#/definitions/id"
+            }
+          },
+          {
+            "in": "body",
+            "name": "user",
+            "description": "The User to update",
+            "schema": {
+              "$ref": "#/definitions/User"
             }
           }
         ],
@@ -150,11 +138,11 @@
               "$ref": "#/definitions/User"
             }
           },
-          "400": {
-            "description": "Failed. Bad post data."
+          "422": {
+            "description": "Validation error"
           },
           "404": {
-            "description": "Failed. user not found."
+            "description": "Document not found"
           }
         }
       },
@@ -173,14 +161,14 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK",
+          "204": {
+            "description": "NO_CONTENT",
             "schema": {
               "$ref": "#/definitions/id"
             }
           },
           "404": {
-            "description": "Failed. user not found."
+            "description": "Document not found"
           }
         }
       }
