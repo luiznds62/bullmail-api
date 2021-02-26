@@ -13,7 +13,6 @@ export default class Server extends EventEmitter {
   constructor() {
     super();
     this.application = express();
-    this.initRoutes();
     this.initListeners();
   }
 

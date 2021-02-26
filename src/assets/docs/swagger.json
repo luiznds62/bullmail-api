@@ -59,27 +59,25 @@
       "post": {
         "tags": ["Users"],
         "summary": "Create a new user in system",
-        "requestBody": {
-          "description": "user Object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/definitions/User"
-              }
+        "parameters": [
+          {
+            "in": "body",
+            "description": "The user to create",
+            "schema": {
+              "$ref": "#/definitions/User"
             }
           }
-        },
+        ],
         "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/id"
+              "$ref": "#/definitions/User"
             }
           },
-          "400": {
-            "description": "Failed. Bad post data."
+          "422": {
+            "description": "Validation errors"
           }
         }
       }
@@ -112,7 +110,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/user"
+              "$ref": "#/definitions/User"
             }
           },
           "404": {
@@ -129,7 +127,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/user"
+                "$ref": "#/definitions/User"
               }
             }
           }
@@ -149,7 +147,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/user"
+              "$ref": "#/definitions/User"
             }
           },
           "400": {
@@ -189,6 +187,13 @@
     }
   },
   "definitions": {
+    "id": {
+      "properties": {
+        "uuid": {
+          "type": "string"
+        }
+      }
+    },
     "User": {
       "type": "object",
       "properties": {

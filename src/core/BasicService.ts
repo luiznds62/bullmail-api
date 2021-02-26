@@ -19,22 +19,12 @@ export abstract class BasicService<R extends BasicRepository<any>, T extends Bas
     return this.repository.find(query);
   }
 
-  async findOne(query): Promise<T> {
-    const model: T = await this.repository.findOne(query);
-    if (!model) {
-      throw new NotFoundError('Document not found');
-    }
-
-    return model;
+  findOne(query): Promise<T> {
+    return this.repository.findOne(query);
   }
 
-  async findById(id): Promise<T> {
-    const model: T = await this.repository.findById(id);
-    if (!model) {
-      throw new NotFoundError('Document not found');
-    }
-
-    return model;
+  findById(id): Promise<T> {
+    return this.repository.findById(id);
   }
 
   create(model): Promise<T> {

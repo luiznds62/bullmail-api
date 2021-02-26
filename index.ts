@@ -6,6 +6,9 @@ const server = new Server();
 
 server
     .start()
+    .then((server: Server) => {
+        server.initRoutes();
+    })
     .catch((err) => {
         logger.error(err);
     });
