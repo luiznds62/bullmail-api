@@ -7,6 +7,7 @@ import { UserService } from '../../domain/user/UserService';
 import { UserMap } from './UserDto';
 import { JOBS } from '../../common/Constants';
 import { Inject } from 'typescript-ioc';
+import { authorize } from '../../core/middleware/AuthorizationMiddleware';
 class UserController extends BasicController<User, UserService, UserMap> {
   @Inject
   service: UserService;
@@ -17,11 +18,11 @@ class UserController extends BasicController<User, UserService, UserMap> {
   }
 
   applyRoutes = () => {
-    this.router.get('/', ...this.findAll);
-    this.router.get('/:id', this.findById);
+    this.router.get('/', authorize(), ...this.findAll);
+    this.router.get('/:id', authorize(), this.findById);
     this.router.post('/', this.create, this.sendRegistrationMail);
-    this.router.put('/:id', this.merge);
-    this.router.delete('/:id', this.delete);
+    this.router.put('/:id', authorize(), this.merge);
+    this.router.delete('/:id', authorize(), this.delete);
   };
 
   sendRegistrationMail = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
