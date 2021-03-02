@@ -23,7 +23,7 @@ class User extends BasicEntity {
   @IsDefined()
   @IsEmail()
   @IsUserAlreadyExist({
-    message: 'E-mail $value is already in use',
+    message: 'E-mail $value is already in use'
   })
   private email: string;
 
