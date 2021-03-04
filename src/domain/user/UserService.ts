@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 
 export class UserService extends BasicService<UserRepository, User> {
   constructor() {
-    super(UserRepository);
+    super(new UserRepository());
   }
 
   findByEmail(email: string): Promise<User> {

@@ -4,11 +4,11 @@ import { BasicPage } from './BasicPage';
 import { Inject } from 'typescript-ioc';
 import { NotFoundError } from './exception/NotFoundError';
 
-export abstract class BasicService<R extends BasicRepository<any>, T extends BasicEntity> {
+export abstract class BasicService<R extends BasicRepository<T>, T extends BasicEntity> {
   private repository: R;
 
-  protected constructor(repository) {
-    this.repository = new repository();
+  protected constructor(@Inject repository: R) {
+    this.repository = repository;
   }
 
   findAll(offset: number, limit: number, sort: string): Promise<BasicPage<T>> {
