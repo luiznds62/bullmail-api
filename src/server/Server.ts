@@ -27,11 +27,11 @@ export default class Server extends EventEmitter {
   }
 
   initRoutes() {
-    this.application.use(errorHandler);
     this.application.use(new TokenParser().parse);
     Object.values(routes).forEach((route) => {
       this.application.use((<any>route).basePath, (<any>route).router);
     });
+    this.application.use(errorHandler);
   }
 
   start() {
