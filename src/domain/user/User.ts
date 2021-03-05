@@ -32,7 +32,7 @@ class User extends BasicEntity {
   @Length(6, 20)
   private password: string;
 
-  private constructor(props: UserProps) {
+  constructor(props: UserProps) {
     super();
     if (props) {
       if (this.hasId(props)) {
