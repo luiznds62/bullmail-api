@@ -3,3 +3,4 @@ node_modules
 .idea
 users.db
 dist
+coverage
