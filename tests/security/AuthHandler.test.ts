@@ -30,7 +30,7 @@ describe('AuthHandler', () => {
     jest.clearAllMocks();
   });
 
-  test('Should authenticate', async () => {
+  test('Should parse token', async () => {
     UserService.prototype.isPasswordMatch = jest.fn().mockReturnValue(true);
     const userService = new UserService();
     AuthHandler.prototype.userService = userService;
