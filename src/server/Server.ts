@@ -24,6 +24,8 @@ export default class Server extends EventEmitter {
     this.on('closing', () => {
       logger.info(`Server is closing`);
     });
+
+    return this;
   }
 
   initRoutes() {
@@ -32,6 +34,8 @@ export default class Server extends EventEmitter {
       this.application.use((<any>route).basePath, (<any>route).router);
     });
     this.application.use(errorHandler);
+
+    return this;
   }
 
   start() {
