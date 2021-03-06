@@ -8,4 +8,8 @@ describe('UserRepository', () => {
 
     expect(repository).toBeDefined();
   });
+
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
 });

@@ -9,7 +9,7 @@ import { User } from '../domain/user/User';
 @Singleton
 class AuthHandler {
   @Inject
-  private userService: UserService;
+  userService: UserService;
 
   authenticate = async (req, res, next) => {
     const { email, password } = req.body;

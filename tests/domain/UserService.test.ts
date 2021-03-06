@@ -96,4 +96,8 @@ describe('UserService', () => {
 
     expect(bool).toBe(false);
   });
+
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
 });
