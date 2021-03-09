@@ -32,6 +32,7 @@
     "typescript-ioc": "3.2.2"
   },
   "devDependencies": {
+    "@types/bull": "^3.15.0",
     "@types/bunyan": "1.8.6",
     "@types/express": "4.17.11",
     "@types/jest": "^26.0.20",
