@@ -38,10 +38,12 @@ describe('TokenParser', () => {
     expect(token).toBe(CONSTS.accessToken.substring(7));
   });
 
-  test('Should apply bearer', () => {
-    const applied = tokenParser.applyBearer(<any>req, next);
+  test('Should apply bearer', async () => {
+    const nextFunction = jest.fn();
+    const applied = tokenParser.applyBearer(<any>{}, nextFunction);
 
-    expect(applied).toBeDefined();
+    await applied(false, true);
+    expect(nextFunction).toHaveBeenCalled();
   });
 
   test('Should parse request', async () => {
