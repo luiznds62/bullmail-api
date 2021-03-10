@@ -18,6 +18,10 @@
   <a href="https://github.com/luiznds62">
     <img alt="Follow luiznds62" src="https://img.shields.io/static/v1?label=Follow&message=luiznds62" />
   </a>
+
+  <a href="https://codecov.io/gh/luiznds62/bullmail-api">
+    <img src="https://codecov.io/gh/luiznds62/bullmail-api/branch/main/graph/badge.svg?token=AWHKI78UK2"/>
+  </a>
 </p>
 
 💡 Este projeto é destinado a criar uma simples API para envio de e-mails utilizando o Bull como MessageQueue e NodeMailer. O intuito é utilizar libraries novas e descobrir features interessantes para aplicar em outros projetos, servindo como boilerplate e como forma de estudo.
@@ -34,7 +38,7 @@ Alguns exemplos interessantes e úteis sobre como seu projeto pode ser utilizado
 
 Adicione blocos de códigos e, se necessário, screenshots.
 
-_Para mais exemplos, consulte a [Wiki](wiki)._ 
+_Para mais exemplos, consulte a [Wiki](wiki)._
 
 ## 💻 Configuração para Desenvolvimento
 
@@ -47,8 +51,8 @@ npm test
 
 ## 🗃 Histórico de lançamentos
 
-* 0.0.1
-    * Trabalho em andamento
+- 0.0.1
+  - Trabalho em andamento
 
 ## 📋 Meta
 
