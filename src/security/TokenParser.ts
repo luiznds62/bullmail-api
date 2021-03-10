@@ -8,11 +8,10 @@ import environment from '../common/Environments';
 export interface IAuthenticatedRequest extends express.Request {
   authenticated: User;
 }
-
 @Singleton
 class TokenParser {
   @Inject
-  private userService: UserService;
+  userService: UserService;
 
   parse: express.RequestHandler = (req: IAuthenticatedRequest, res, next) => {
     const token = this.extractToken(req);

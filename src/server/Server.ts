@@ -1,10 +1,10 @@
 import express from 'express';
 import EventEmitter from 'events';
 import environment from '../common/Environments';
+import methodOverride from 'method-override';
 import { logger } from '../common/Logger';
 import { errorHandler } from '../common/ErrorHandler';
 import { TokenParser } from '../security/TokenParser';
-import methodOverride from 'method-override';
 import * as bodyParser from 'body-parser';
 import * as routes from '../api/router';
 export default class Server extends EventEmitter {
@@ -24,15 +24,18 @@ export default class Server extends EventEmitter {
     this.on('closing', () => {
       logger.info(`Server is closing`);
     });
+
+    return this;
   }
 
   initRoutes() {
-    this.application.use(errorHandler);
     this.application.use(new TokenParser().parse);
-
     Object.values(routes).forEach((route) => {
       this.application.use((<any>route).basePath, (<any>route).router);
     });
+    this.application.use(errorHandler);
+
+    return this;
   }
 
   start() {
@@ -48,10 +51,5 @@ export default class Server extends EventEmitter {
         reject(error);
       }
     });
-  }
-
-  shutdown() {
-    this.emit('closing');
-    (<any>this.application).close();
   }
 }

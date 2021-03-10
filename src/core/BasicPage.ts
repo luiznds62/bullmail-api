@@ -1,31 +1,38 @@
 export class BasicPage<T> {
-    private content: T[];
-    private total: number;
-    private hasNext: boolean
+  private content: T[];
+  private total: number;
+  private hasNext: boolean;
 
-    constructor() {
-    }
+  constructor() {}
 
-    getContent(): T[] {
-        return this.content;
-    }
+  getTotal(): number {
+    return this.total;
+  }
 
-    setContent(content: T[]): BasicPage<T> {
-        this.content = content;
-        return this;
-    }
+  getHasNext(): boolean {
+    return this.hasNext;
+  }
 
-    setTotal(total: number): BasicPage<T> {
-        this.total = total;
-        return this;
-    }
+  getContent(): T[] {
+    return this.content;
+  }
 
-    setHasNext(hasNext: boolean): BasicPage<T> {
-        this.hasNext = hasNext
-        return this;
-    }
+  setContent(content: T[]): BasicPage<T> {
+    this.content = content;
+    return this;
+  }
 
-    build(): BasicPage<T> {
-        return this;
-    }
+  setTotal(total: number): BasicPage<T> {
+    this.total = total;
+    return this;
+  }
+
+  setHasNext(hasNext: boolean): BasicPage<T> {
+    this.hasNext = hasNext;
+    return this;
+  }
+
+  build(): BasicPage<T> {
+    return this;
+  }
 }
