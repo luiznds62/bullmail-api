@@ -30,6 +30,9 @@ jobs:
       - run:
           name: Run tests
           command: npm test
+          
+      - codecov/upload:
+          file: {{ coverage_report_filepath }}
 
 workflows:
   # Below is the definition of your workflow.
