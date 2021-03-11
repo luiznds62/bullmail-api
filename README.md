@@ -13,11 +13,11 @@
 
    <img alt="Issues" src="https://img.shields.io/github/issues/luiznds62/bullmail-api" />
 
-   <img alt="GitHub license" src="https://img.shields.io/github/license/luiznds62/readme-model?color=4A90E2&label=LICENSE&logo=3C424B&logoColor=3C424B" />
+   <a href="https://circleci.com/gh/luiznds62/bullmail-api"><img src="https://circleci.com/gh/luiznds62/bullmail-api.svg?style=svg"></a>
 
-  <a href="https://github.com/luiznds62">
+   <a href="https://github.com/luiznds62">
     <img alt="Follow luiznds62" src="https://img.shields.io/static/v1?label=Follow&message=luiznds62" />
-  </a>
+   </a>
 
   <a href="https://codecov.io/gh/luiznds62/bullmail-api">
     <img src="https://codecov.io/gh/luiznds62/bullmail-api/branch/main/graph/badge.svg?token=AWHKI78UK2"/>
