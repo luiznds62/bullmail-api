@@ -7,8 +7,8 @@
     "start:dev": "ts-node-dev --respawn index.ts",
     "start:queue:dev": "ts-node-dev --respawn queue.ts",
     "swagger:autogen": "ts-node-dev swagger.ts",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "author": "luiznds",
   "license": "ISC",
