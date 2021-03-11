@@ -13,7 +13,7 @@
 
    <img alt="Issues" src="https://img.shields.io/github/issues/luiznds62/bullmail-api" />
 
-   <a href="https://circleci.com/gh/luiznds62/bullmail-api"><img src="https://circleci.com/gh/luiznds62/bullmail-api.svg?style=svg"></a>
+   <img src="https://circleci.com/gh/luiznds62/bullmail-api.svg?style=svg">
 
    <a href="https://github.com/luiznds62">
     <img alt="Follow luiznds62" src="https://img.shields.io/static/v1?label=Follow&message=luiznds62" />
